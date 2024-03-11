@@ -12,7 +12,10 @@ class Brand {
 
 class BrandModel extends ChangeNotifier {
   List<Brand> _brands = [];
+    
 
+
+  
   List<Brand> get brands => _brands;
 
   Future<void> fetchBrands() async {
