@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/Widgets/product_widget.dart';
 import 'package:linked_all_pages/screens/home_screen.dart';
 import 'package:linked_all_pages/shop/shop_product_model.dart';
 import 'package:linked_all_pages/shop/shop_service.dart';
