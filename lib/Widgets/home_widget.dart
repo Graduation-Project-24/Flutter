@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/Widgets/product_card.dart';
+import 'package:linked_all_pages/productDetails/product_details_screen.dart';
 import 'package:linked_all_pages/screens/profile.dart';
 import 'package:linked_all_pages/screens/search2.dart';
-
-import '../screens/product_Detailes_screen.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -245,7 +244,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const ProductDetails()));
+                                      const ProductDetailsWidget(
+                                        productId: 320,
+                                      )));
                         });
                       },
                       child: ProductCard('assets/product.png', 'name', '199')),
@@ -257,7 +258,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const ProductDetails()));
+                                      const ProductDetailsWidget(
+                                        productId: 320,
+                                      )));
                         });
                       },
                       child: ProductCard('assets/product.png', 'name', '199')),
@@ -275,7 +278,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const ProductDetails()));
+                                      const ProductDetailsWidget(
+                                        productId: 320,
+                                      )));
                         });
                       },
                       child: ProductCard('assets/product.png', 'name', '199')),
@@ -287,7 +292,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const ProductDetails()));
+                                      const ProductDetailsWidget(
+                                        productId: 320,
+                                      )));
                         });
                       },
                       child: ProductCard('assets/product.png', 'name', '199')),
@@ -305,7 +312,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const ProductDetails()));
+                                      const ProductDetailsWidget(
+                                        productId: 320,
+                                      )));
                         });
                       },
                       child: ProductCard('assets/product.png', 'name', '350')),
@@ -317,7 +326,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const ProductDetails()));
+                                      const ProductDetailsWidget(
+                                        productId: 320,
+                                      )));
                         });
                       },
                       child: ProductCard('assets/product.png', 'name', '350')),
