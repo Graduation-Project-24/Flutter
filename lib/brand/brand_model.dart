@@ -16,7 +16,7 @@ class BrandModel extends ChangeNotifier {
 
 
   
-  List<Brand> get brands => _brands;
+  List<Brand> get brands => _brands; // Hamo
 
   Future<void> fetchBrands() async {
     final response =
