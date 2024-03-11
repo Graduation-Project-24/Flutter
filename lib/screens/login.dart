@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:linked_all_pages/screens/auth_screens/register_screen.dart';
 import 'package:linked_all_pages/screens/forget1.dart';
 import 'package:linked_all_pages/screens/home_screen.dart';
+import 'package:linked_all_pages/shop/shop_screen.dart';
 
 // ignore: camel_case_types
 class login extends StatefulWidget {
@@ -97,7 +98,7 @@ class _loginState extends State<login> {
                         onPressed: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
-                            return forget();
+                            return ShoppingScreen();
                           }));
                         },
                         child: const Text("Forget password?")),

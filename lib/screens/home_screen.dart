@@ -3,7 +3,7 @@ import 'package:linked_all_pages/Widgets/home_widget.dart';
 import 'package:linked_all_pages/screens/categories%20test%20.dart';
 
 import 'package:linked_all_pages/screens/favorites.dart';
-import 'package:linked_all_pages/screens/shopping_screen.dart';
+import 'package:linked_all_pages/shop/shop_screen.dart';
 import 'charttt.dart';
 
 class HomeScreen extends StatefulWidget {
