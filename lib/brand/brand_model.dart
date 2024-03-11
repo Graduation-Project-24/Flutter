@@ -17,7 +17,7 @@ class BrandModel extends ChangeNotifier {
 
   
   List<Brand> get brands => _brands; // Hamo
-
+//ash
   Future<void> fetchBrands() async {
     final response =
         await http.get(Uri.parse('https://www.smarketp.somee.com/api/Brand'));
