@@ -67,7 +67,7 @@ class _LoginScreenState extends State<Login_Screen2> {
         // Navigate to the home screen, passing the token
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeWidget(token: token)),
+          MaterialPageRoute(builder: (context) => HomeWidget(token:'token')),
         );
       } else {
         // Handle failure
@@ -190,8 +190,8 @@ class _LoginScreenState extends State<Login_Screen2> {
                   width: 450,
                   padding: const EdgeInsets.only(top: 10),
                   child: ElevatedButton(
-                    onPressed: () {
-                   /*   Navigator.pushReplacement(
+                   onPressed: () {
+                     /* Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => Signup2()),
                       );*/

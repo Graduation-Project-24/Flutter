@@ -114,7 +114,7 @@ class LoginForm extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-           /* Navigator.pushReplacement(
+          /*  Navigator.pushReplacement(
                         context as BuildContext,
                         MaterialPageRoute(builder: (context) => ForgetPassword()),
                       );*/
@@ -159,7 +159,7 @@ class LoginForm extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10),
       child: ElevatedButton(
         onPressed: () {
-    /*    Navigator.pushReplacement(
+        /* Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => Signup2()),
                       );*/

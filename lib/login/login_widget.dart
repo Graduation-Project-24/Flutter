@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class EmailField extends StatelessWidget {
   final TextEditingController controller;
 
@@ -139,7 +138,7 @@ class ForgetPasswordButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-      /*  Navigator.pushReplacement(
+     /*   Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => ForgetPassword()),
         );*/
