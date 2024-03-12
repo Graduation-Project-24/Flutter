@@ -5,7 +5,7 @@ import 'package:linked_all_pages/screens/profile.dart';
 import 'package:linked_all_pages/screens/search2.dart';
 
 class HomeWidget extends StatefulWidget {
-  const HomeWidget({super.key});
+  const HomeWidget({super.key, required String token});
 
   @override
   State<HomeWidget> createState() => _HomeWidgetState();

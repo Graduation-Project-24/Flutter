@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Widget> widgetPages = [
-    const HomeWidget(),
+     HomeWidget(token: 'token',),
     ShoppingScreen(),
     Categories(),
     favorites(),
