@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 
-import 'package:linked_all_pages/Categoriess/category_model.dart';
+import 'package:linked_all_pages/Categories/category_model.dart';
 import 'package:linked_all_pages/screens/cate%20test.dart';
 class TestDesign extends StatefulWidget {
   const TestDesign({Key? key});

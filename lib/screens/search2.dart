@@ -454,24 +454,3 @@ class DataSearch extends SearchDelegate {
     throw UnimplementedError();
   }
 }
-
-uildActions(BuildContext context) {
-  return [IconButton(onPressed: (() {}), icon: const Icon(Icons.close))];
-}
-
-@override
-Widget? buildLeading(BuildContext context) {
-  return IconButton(onPressed: (() {}), icon: const Icon(Icons.arrow_back));
-}
-
-@override
-Widget buildResults(BuildContext context) {
-  // TODO: implement buildResults
-  throw UnimplementedError();
-}
-
-@override
-Widget buildSuggestions(BuildContext context) {
-  // TODO: implement buildSuggestions
-  throw UnimplementedError();
-}
