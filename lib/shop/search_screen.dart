@@ -1,8 +1,10 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import '../productDetails/product_details_screen.dart';
 import '../screens/edit.dart';
 import '../screens/home_screen.dart';
 
@@ -32,7 +34,6 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
         print('Error fetching search results: $error');
       });
     } else {
-      // If the query is empty, clear the search results
       setState(() {
         _searchResults = [];
       });
@@ -43,6 +44,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 90,
         leading: IconButton(
             onPressed: () {
               Navigator.of(context)
@@ -55,7 +57,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
         title: const Text(
           "search",
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16),
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
         ),
         actions: [
           IconButton(
@@ -112,15 +114,28 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
               itemCount: _searchResults.length,
               itemBuilder: (context, index) {
                 final result = _searchResults[index];
-                return ListTile(
-                  leading: Image.network(result['imageUrl']),
-                  title: Text(result['name']),
-                  // subtitle: Text(result['description']),
-                  trailing: IconButton(
-                    onPressed: () {
-                      // Handle more options
-                    },
-                    icon: const Icon(Icons.more_vert_outlined),
+                return GestureDetector(
+                  onTap: () {
+                    // Navigate to product details page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ProductDetailsWidget(productId: result['id']),
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    leading: Container(
+                      width: 80,
+                      height: 80,
+                      child: Image.network(
+                        result['imageUrl'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    title: Text(result['name']),
+                    // subtitle: Text(result['description']),
                   ),
                 );
               },
