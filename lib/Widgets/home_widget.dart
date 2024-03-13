@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:linked_all_pages/Widgets/product_card.dart';
 import 'package:linked_all_pages/productDetails/product_details_screen.dart';
 import 'package:linked_all_pages/screens/profile.dart';
-import 'package:linked_all_pages/screens/search2.dart';
+
+import '../shop/search_screen.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key, required String token});
@@ -35,7 +36,9 @@ class _HomeWidgetState extends State<HomeWidget> {
             onTap: () {
               setState(() {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => search()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductSearchPage()));
               });
             },
             child: Container(
@@ -62,9 +65,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                     width: 10,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 5),
                     child: Text(
-                      ' Search Store',
+                      ' Search for product',
                       style: TextStyle(
                         color: Color(0x60263238),
                         fontSize: 14,

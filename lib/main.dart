@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
         // BlocProvider(create: (context) => LayoutCubit()..getCarts()..getFavorites()..getBannersData()..getCategoriesData()..getProducts()),
       ],
       child: const MaterialApp(
-          debugShowCheckedModeBanner: false, home: SplashScreen()),
+          title: 'Smarket',
+          debugShowCheckedModeBanner: false,
+          home: SplashScreen()),
     );
   }
 }

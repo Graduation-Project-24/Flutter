@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/Widgets/product_widget.dart';
 import 'package:linked_all_pages/screens/home_screen.dart';
 import 'package:linked_all_pages/shop/shop_product_model.dart';
 import 'package:linked_all_pages/shop/shop_service.dart';
-
+import 'search_screen.dart';
 import '../productDetails/product_details_screen.dart';
 
 class ProductCardShop extends StatelessWidget {
@@ -171,7 +170,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                     Navigator.of(context).push(
                       // MaterialPageRoute(builder: (context) => const SearchScreen()),
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
+                          builder: (context) => ProductSearchPage()),
                     );
                   },
                   label: const Text(
