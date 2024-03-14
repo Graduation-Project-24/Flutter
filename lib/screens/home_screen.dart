@@ -27,11 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
     // Initialize widget pages with HomeWidget and other screens
     widgetPages = [
       HomeWidget(token: widget.token),
-      ShoppingScreen(),
+      ShoppingScreen(token: widget.token),
       CategoryScreen(token: widget.token),
       favorites(),
       chart(),
-      ProductDetailsWidget(token:widget.token),
+      ProductDetailsWidget(token: widget.token),
       profile_screen(token: widget.token)
     ];
   }

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/screens/forget1.dart';
 import 'package:linked_all_pages/shop/shop_product_model.dart';
@@ -11,7 +9,7 @@ class ProductCardShop extends StatelessWidget {
   const ProductCardShop({
     Key? key,
     required this.product,
-    this.token,
+    required this.token,
   }) : super(key: key);
   final String? token;
   final Product product;
@@ -28,7 +26,7 @@ class ProductCardShop extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => ProductDetailsWidget(
                       productId: product.id,
-                      token: token ,
+                      token: token,
                     )),
           );
         },
@@ -114,7 +112,12 @@ class ProductCardShop extends StatelessWidget {
 }
 
 class ShoppingScreen extends StatefulWidget {
-  const ShoppingScreen({Key? key}) : super(key: key);
+  const ShoppingScreen({
+    Key? key,
+    required this.token,
+  }) : super(key: key);
+
+  final String? token;
 
   @override
   State<ShoppingScreen> createState() => _ShoppingScreenState();
@@ -241,9 +244,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
               itemBuilder: (context, index) {
                 final product = snapshot.data![index];
 
-                return ProductCardShop(
-                  product: product,
-                );
+                return ProductCardShop(product: product, token: widget.token);
               },
             );
           }
