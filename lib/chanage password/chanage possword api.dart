@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:linked_all_pages/screens/login.dart';
+
+import '../login/login_screen.dart';
 
 
 
@@ -49,7 +50,7 @@ class _TestState extends State<Test> {
         // Password changed successfully
         // You can handle the success scenario here
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return login();
+          return LoginScreen();
         }));
       } else {
         // Password change failed

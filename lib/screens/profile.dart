@@ -23,7 +23,7 @@ class _profileState extends State<profile> {
               onPressed: () {
                 Navigator.of(context)
                     .pushReplacement(MaterialPageRoute(builder: (context) {
-                  return const HomeScreen();
+                  return  forget(); // change to home
                 }));
               },
               icon: const Icon(Icons.chevron_left, color: Colors.white)),

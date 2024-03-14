@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/screens/login.dart';
+
+import '../login/login_screen.dart';
 
 // class otp extends StatelessWidget {
 //   @override
@@ -129,7 +130,7 @@ class _otpState extends State<otp> {
                   onPressed: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
-                      return login();
+                      return LoginScreen();
                     }));
                   },
                   style: ElevatedButton.styleFrom(

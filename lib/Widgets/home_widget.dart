@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/Widgets/product_card.dart';
 import 'package:linked_all_pages/productDetails/product_details_screen.dart';
-import 'package:linked_all_pages/screens/profile.dart';
 
+import '../profile_screen/profile_screen.dart';
 import '../shop/search_screen.dart';
 
 class HomeWidget extends StatefulWidget {
-  const HomeWidget({super.key, required String token});
+  final String token;
+
+  const HomeWidget({super.key, required this.token});
 
   @override
   State<HomeWidget> createState() => _HomeWidgetState();
@@ -89,8 +91,11 @@ class _HomeWidgetState extends State<HomeWidget> {
           GestureDetector(
             onTap: () {
               setState(() {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => profile()));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            profile_screen(token: widget.token)));
               });
             },
             child: ClipRRect(
@@ -246,8 +251,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ProductDetailsWidget(
+                                  builder: (context) => ProductDetailsWidget(
+                                        token: widget.token,
                                         productId: 320,
                                       )));
                         });
@@ -260,8 +265,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ProductDetailsWidget(
+                                  builder: (context) => ProductDetailsWidget(
+                                        token: widget.token,
                                         productId: 320,
                                       )));
                         });
@@ -280,8 +285,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ProductDetailsWidget(
+                                  builder: (context) => ProductDetailsWidget(
+                                        token: widget.token,
                                         productId: 320,
                                       )));
                         });
@@ -294,8 +299,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ProductDetailsWidget(
+                                  builder: (context) => ProductDetailsWidget(
+                                        token: widget.token,
                                         productId: 320,
                                       )));
                         });
@@ -314,8 +319,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ProductDetailsWidget(
+                                  builder: (context) => ProductDetailsWidget(
+                                        token: widget.token,
                                         productId: 320,
                                       )));
                         });
@@ -328,8 +333,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ProductDetailsWidget(
+                                  builder: (context) => ProductDetailsWidget(
+                                        token: widget.token,
                                         productId: 320,
                                       )));
                         });

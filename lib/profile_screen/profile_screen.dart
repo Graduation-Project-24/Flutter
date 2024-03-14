@@ -1,32 +1,30 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/Widgets/home_widget.dart';
-import 'package:linked_all_pages/edit%20profile/profileedit.dart';
-import 'package:linked_all_pages/login/login_screen.dart';
+import 'package:linked_all_pages/profile_screen/edit_profile.dart';
 import 'package:linked_all_pages/profile_screen/logout.dart';
 import 'package:linked_all_pages/screens/about_screen.dart';
 import 'package:linked_all_pages/screens/charttt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../login/login_screen.dart';
 
+class profile_screen extends StatelessWidget {
+  final String token;
 
-class profile_scrren extends StatelessWidget {
-  final String? token;
-
-  const profile_scrren({Key? key, this.token}) : super(key: key);
+  const profile_screen({Key? key, required this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Decode the JWT and extract information
     Map<String, dynamic> userInfo = token != null ? decodeJwt(token!) : {};
 
     return MaterialApp(
-      title: 'JWT Decoding Example',
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-                  return HomeWidget(token: 'token');
+                Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(builder: (context) {
+                  return HomeWidget(token: token);
                 }));
               },
               icon: const Icon(Icons.chevron_left, color: Colors.white)),
@@ -39,10 +37,8 @@ class profile_scrren extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => chart()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => chart()));
                 },
                 icon: const Icon(Icons.shopping_cart_outlined,
                     color: Colors.white))
@@ -76,7 +72,9 @@ class profile_scrren extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => profed(token: 'token',)));
+                                    builder: (context) => EditProfile(
+                                          token: token,
+                                        )));
                           },
                           child: const Icon(Icons.edit))
                     ]),
@@ -99,7 +97,8 @@ class profile_scrren extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text("Username"),
-                            subtitle: Text(userInfo['unique_name'] ?? 'Null'),
+                            subtitle:
+                                Text(userInfo['unique_name'] ?? 'No Username'),
                             leading: Icon(
                               Icons.badge_sharp,
                               color: Colors.black,
@@ -110,7 +109,8 @@ class profile_scrren extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text("Email"),
-                            subtitle: Text(userInfo['email'] ?? 'Null'),
+                            subtitle:
+                                Text(userInfo['email'] ?? 'No Email Address'),
                             leading: Icon(
                               Icons.email,
                               color: Colors.black,
@@ -121,7 +121,8 @@ class profile_scrren extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text("Phone Number"),
-                            subtitle: Text(userInfo['mobilephone'] ?? 'Null'),
+                            subtitle: Text(
+                                userInfo['mobilephone'] ?? 'No Phone Number'),
                             leading: Icon(
                               Icons.phone,
                               color: Colors.black,
@@ -132,7 +133,9 @@ class profile_scrren extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text("Address"),
-                            subtitle: Text('${userInfo['City']}, ${userInfo['State'] ?? 'Null'}, ${userInfo['City']}' ?? 'Null'),
+                            subtitle: Text(
+                                '${userInfo['City']}, ${userInfo['State'] ?? 'No State'}, ${userInfo['City']}' ??
+                                    'No City'),
                             leading: Icon(
                               Icons.location_on,
                               color: Colors.black,
@@ -173,7 +176,7 @@ class profile_scrren extends StatelessWidget {
                             trailing: const Icon(Icons.chevron_right_outlined,
                                 color: Color(0xff000000)),
                             onTap: () {
-                             /* Navigator.of(context)
+                              /* Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
                                 return ForgetPassword();
                               }));*/
@@ -189,7 +192,7 @@ class profile_scrren extends StatelessWidget {
                               trailing: const Icon(Icons.chevron_right_outlined,
                                   color: Color(0xff000000)),
                               onTap: () {
-                              /*  Navigator.of(context)
+                                /*  Navigator.of(context)
                                     .push(MaterialPageRoute(builder: (context) {
                                   return ForgetPassword();
                                 }));*/
@@ -222,8 +225,8 @@ class profile_scrren extends StatelessWidget {
                       ),
                       child: ListView(children: [
                         ListTile(
-                            title:  Text("Help"),
-                            leading:  Icon(Icons.help_center_rounded,
+                            title: Text("Help"),
+                            leading: Icon(Icons.help_center_rounded,
                                 color: Color(0xff000000)),
                             onTap: () {
                               Navigator.of(context)
@@ -231,32 +234,32 @@ class profile_scrren extends StatelessWidget {
                                 return AboutScreen();
                               }));
                             }),
-                         Divider(
-                          color: Colors.black,
-                        ),
-                         ListTile(
-        
-                          title: Text("Contact Us"),
-                          leading:
-                          IconButton(onPressed: (() {
-                              showBottomSheet(context);
-                          }), icon: Icon(Icons.phone)  , 
-                            color: Colors.black, )
-                        ),
-                         Divider(
+                        Divider(
                           color: Colors.black,
                         ),
                         ListTile(
-                          title:  Text("About us"),
-                          leading:  Icon(
+                            title: Text("Contact Us"),
+                            leading: IconButton(
+                              onPressed: (() {
+                                showBottomSheet(context);
+                              }),
+                              icon: Icon(Icons.phone),
+                              color: Colors.black,
+                            )),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        ListTile(
+                          title: Text("About us"),
+                          leading: Icon(
                             Icons.info,
                             color: Colors.black,
                           ),
                           onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const AboutScreen()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const AboutScreen()));
                           },
                         ),
                       ]),
@@ -294,15 +297,18 @@ class profile_scrren extends StatelessWidget {
 
                           if (isLoggedOut) {
                             // Delete token from cache
-                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
                             await prefs.remove('token');
 
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-                              return Login_Screen2();
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(builder: (context) {
+                              return const LoginScreen();
                             }));
                           } else {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                              return profile_scrren(token: token);
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return profile_screen(token: token);
                             }));
                           }
                         },
@@ -333,8 +339,7 @@ class profile_scrren extends StatelessWidget {
           decoration: BoxDecoration(
               color: Color(0xFF354249),
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20))),
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

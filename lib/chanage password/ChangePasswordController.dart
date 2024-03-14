@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/chanage%20password/chanage%20Model%20Class.dart';
-import 'package:linked_all_pages/screens/login.dart';
+
+import '../login/login_screen.dart';
 
 class ChangePasswordController {
   Future<void> changePassword({
@@ -40,7 +41,7 @@ class ChangePasswordController {
 
   void _handleSuccess(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return login();
+      return LoginScreen();
     }));
   }
 
