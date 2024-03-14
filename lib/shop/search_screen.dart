@@ -1,14 +1,15 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:linked_all_pages/screens/forget1.dart';
 import 'dart:convert';
 import '../productDetails/product_details_screen.dart';
 import '../screens/edit.dart';
-import '../screens/home_screen.dart';
 
 class ProductSearchPage extends StatefulWidget {
+  final String? token;
+
+  const ProductSearchPage({super.key, this.token});
   @override
   _ProductSearchPageState createState() => _ProductSearchPageState();
 }
@@ -49,7 +50,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
             onPressed: () {
               Navigator.of(context)
                   .pushReplacement(MaterialPageRoute(builder: (context) {
-                return const HomeScreen();
+                return forget(); // change to home
               }));
             },
             icon: const Icon(Icons.chevron_left, color: Colors.white)),
@@ -120,8 +121,10 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            ProductDetailsWidget(productId: result['id']),
+                        builder: (context) => ProductDetailsWidget(
+                          productId: result['id'],
+                          token: widget.token as String,
+                        ),
                       ),
                     );
                   },

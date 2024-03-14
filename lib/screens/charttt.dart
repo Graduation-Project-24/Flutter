@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/Widgets/home_widget.dart';
+import 'package:linked_all_pages/screens/forget1.dart';
 
 import 'checkout_1.dart';
 import 'home_screen.dart';
@@ -32,7 +33,7 @@ class _testState extends State<test> {
           leading: IconButton(
               onPressed: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                    MaterialPageRoute(builder: (context) => forget())); // change to home
               },
               icon: const Icon(
                 Icons.chevron_left,

@@ -3,13 +3,13 @@ import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
-class profed extends StatefulWidget {
+class EditProfile extends StatefulWidget {
   final String token;
 
-  const profed({Key? key, required this.token}) : super(key: key);
+  const EditProfile({Key? key, required this.token}) : super(key: key);
 
   @override
   _ProfileEditorState createState() => _ProfileEditorState();
@@ -17,14 +17,14 @@ class profed extends StatefulWidget {
 
 pickImage(ImageSource source) async {
   final ImagePicker _imagePicker = ImagePicker();
-  XFile? _file = await _imagePicker.pickImage(source:source);
-  if(_file!=null){
+  XFile? _file = await _imagePicker.pickImage(source: source);
+  if (_file != null) {
     return await _file.readAsBytes();
   }
   print("no image is selected");
 }
 
-class _ProfileEditorState extends State<profed> {
+class _ProfileEditorState extends State<EditProfile> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -33,6 +33,30 @@ class _ProfileEditorState extends State<profed> {
   TextEditingController cityController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   Uint8List? _image;
+
+  @override
+  void initState() {
+    super.initState();
+    decodeToken();
+  }
+
+  void decodeToken() {
+    try {
+      Map<String, dynamic> tokenData = Jwt.parseJwt(widget.token);
+
+      setState(() {
+        firstNameController.text = tokenData['given_name'] ?? '';
+        lastNameController.text = tokenData['family_name'] ?? '';
+        emailController.text = tokenData['email'] ?? '';
+        phoneController.text = tokenData['mobilephone'] ?? '';
+        birthdayController.text = tokenData['birthdate'] ?? '';
+        cityController.text = tokenData['City'] ?? '';
+        stateController.text = tokenData['state'] ?? '';
+      });
+    } catch (e) {
+      print("Error decoding token: $e");
+    }
+  }
 
   void deleteImage() {
     setState(() {
@@ -49,13 +73,14 @@ class _ProfileEditorState extends State<profed> {
 
   Future<void> editProfile(BuildContext context) async {
     try {
-      var url = Uri.parse("https://www.smarketp.somee.com/api/Account/EditUser");
+      var url =
+          Uri.parse("https://www.smarketp.somee.com/api/Account/EditUser");
       var userData = {
         "email": emailController.text,
-        "fname": firstNameController.text,
-        "lname": lastNameController.text,
-        "phone": phoneController.text,
-        "city": cityController.text,
+        "family_name": lastNameController.text,
+        "given_name": firstNameController.text,
+        "mobilephone": phoneController.text,
+        "City": cityController.text,
         "birthdate": birthdayController.text,
         "state": stateController.text
       };
@@ -81,9 +106,17 @@ class _ProfileEditorState extends State<profed> {
         print("Profile updated successfully");
       } else {
         print("Update failed with status code: ${response.statusCode}");
+        print("Response body: ${response.body}");
+        // You can show a Snackbar or Dialog with the error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to update profile: ${response.statusCode}'),
+          ),
+        );
       }
     } catch (e) {
       print("Error: $e");
+      // Handle other types of errors (e.g., network errors)
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('An error occurred: $e'),
@@ -111,7 +144,6 @@ class _ProfileEditorState extends State<profed> {
           _buildTextField(cityController, 'City'),
           _buildTextField(stateController, 'State'),
           SizedBox(height: 20),
-         
         ],
       ),
     );
@@ -129,7 +161,7 @@ class _ProfileEditorState extends State<profed> {
               : CircleAvatar(
                   radius: 50,
                   backgroundImage: NetworkImage(
-                      "https://images.app.goo.gl/DPgya8wRt1c5a6fq5"),
+                      "https://storage.needpix.com/rsynced_images/blank-profile-picture-973460_1280.png"),
                 ),
           Positioned(
             child: IconButton(

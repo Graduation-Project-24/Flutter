@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/brand/BrandProduct/product_screen.dart';
-import 'package:linked_all_pages/productDetails/product_details_screen.dart';
 import 'package:linked_all_pages/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'brand_model.dart';
 
 class Brands extends StatelessWidget {
+  final String token;
+
+  const Brands({required this.token, Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Test(),
+      home: BrandScreen(token: token),
     );
   }
 }
 
-class Test extends StatelessWidget {
+class BrandScreen extends StatelessWidget {
+  final String token;
+
+  const BrandScreen({required this.token, Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +33,7 @@ class Test extends StatelessWidget {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(builder: (context) => HomeScreen(token: token)),
             );
           },
           icon: const Icon(Icons.chevron_left, color: Colors.black),

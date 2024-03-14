@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/screens/auth_screens/login_screen.dart';
-import 'package:linked_all_pages/screens/home_screen.dart';
-import 'package:linked_all_pages/screens/login.dart';
-import 'package:linked_all_pages/screens/loginn.dart';
+import '../login/login_screen.dart';
 
 class OnboardScreen extends StatefulWidget {
   const OnboardScreen({super.key});
@@ -13,7 +10,6 @@ class OnboardScreen extends StatefulWidget {
 
 class _OnboardScreenState extends State<OnboardScreen> {
   late PageController _pageController;
-  int _pageIndex = 0;
 
   @override
   void initState() {
@@ -61,7 +57,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
               onTap: () {
                 setState(() {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => loginScreen()));
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
                 });
               },
               child: const Text(
@@ -82,9 +78,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   itemCount: walkThroughData.length,
                   controller: _pageController,
                   onPageChanged: (index) {
-                    setState(() {
-                      _pageIndex = index;
-                    });
+                    setState(() {});
                   },
                   itemBuilder: (context, index) => WalkThroughContent(
                       pageIndex: index, walkThroughData: walkThroughData)))
@@ -241,7 +235,7 @@ class WalkThroughContent extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(builder: (context) {
-                            return login();
+                            return LoginScreen();
                           }));
                         },
                         child: Row(

@@ -3,9 +3,9 @@ import 'package:linked_all_pages/productDetails/product_service.dart';
 import 'product_model.dart';
 
 class ProductDetailsWidget extends StatefulWidget {
-  final int productId;
-
-  const ProductDetailsWidget({Key? key, required this.productId})
+  final int? productId;
+  final String? token;
+  const ProductDetailsWidget({Key? key, this.productId, required this.token})
       : super(key: key);
 
   @override
@@ -14,11 +14,11 @@ class ProductDetailsWidget extends StatefulWidget {
 
 class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
   late Future<Map<String, dynamic>> _productDetails;
-
+  bool isFavorite = false;
   @override
   void initState() {
     super.initState();
-    _productDetails = fetchProductDetails(widget.productId);
+    _productDetails = fetchProductDetails(widget.productId as int);
   }
 
   @override
@@ -95,9 +95,19 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.favorite_border,
+                  onPressed: () {
+                    setState(() {
+                      isFavorite = !isFavorite; // Toggle favorite status
+                    });
+                    if (isFavorite) {
+                      print(widget.token);
+                      _addToFavorites(productData['id']);
+                    } else {
+                      _removeFromFavorites(productData['id']);
+                    }
+                  },
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
                     size: 30,
                     color: Color.fromARGB(255, 196, 56, 140),
                   ),
@@ -248,5 +258,36 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
         ),
       ),
     );
+  }
+
+  void _addToFavorites(int productId) async {
+    print(widget.token);
+    if (widget.token != null) {
+      // Make API call to add product to favorites
+      try {
+        await ProductService.addToFavorites(productId, widget.token!);
+        // Handle success
+      } catch (e) {
+        // Handle error
+        print('Error adding to favorites: $e');
+      }
+    } else {
+      print('Token is null');
+    }
+  }
+
+  void _removeFromFavorites(int productId) async {
+    if (widget.token != null) {
+      // Make API call to remove product from favorites
+      try {
+        await ProductService.removeFromFavorites(productId, widget.token!);
+        // Handle success
+      } catch (e) {
+        // Handle error
+        print('Error removing from favorites: $e');
+      }
+    } else {
+      print('Token is null');
+    }
   }
 }

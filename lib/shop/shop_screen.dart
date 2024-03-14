@@ -1,5 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/screens/home_screen.dart';
+import 'package:linked_all_pages/screens/forget1.dart';
 import 'package:linked_all_pages/shop/shop_product_model.dart';
 import 'package:linked_all_pages/shop/shop_service.dart';
 import 'search_screen.dart';
@@ -9,8 +11,9 @@ class ProductCardShop extends StatelessWidget {
   const ProductCardShop({
     Key? key,
     required this.product,
+    this.token,
   }) : super(key: key);
-
+  final String? token;
   final Product product;
 
   @override
@@ -19,11 +22,14 @@ class ProductCardShop extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () {
+          print('Token: ${token}');
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    ProductDetailsWidget(productId: product.id)),
+                builder: (context) => ProductDetailsWidget(
+                      productId: product.id,
+                      token: token ,
+                    )),
           );
         },
         child: Container(
@@ -131,7 +137,8 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(
+                  builder: (context) => forget()), // change to home
             );
           },
           icon: const Icon(Icons.chevron_left, color: Colors.white),
@@ -211,7 +218,8 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
           IconButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => HomeScreen()),
+                MaterialPageRoute(
+                    builder: (context) => forget()), // change to home
               );
             },
             icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white),

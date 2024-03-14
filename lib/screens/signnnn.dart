@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:linked_all_pages/screens/forget1.dart';
 import 'package:linked_all_pages/screens/home_screen.dart';
-import 'package:linked_all_pages/screens/login.dart';
-import 'package:linked_all_pages/screens/onboard_screen.dart';
+
+import '../login/login_screen.dart';
 
 void main() {
   runApp(signup());
@@ -170,8 +171,10 @@ class _testState extends State<test> {
             ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => forget())); // change to home
                   });
                 },
                 style: ElevatedButton.styleFrom(
@@ -196,7 +199,7 @@ class _testState extends State<test> {
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return login();
+                    return LoginScreen();
                   }));
                 },
                 style: ElevatedButton.styleFrom(

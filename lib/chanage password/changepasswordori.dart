@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/screens/login.dart';
 
+import '../login/login_screen.dart';
 
 class Changepassword extends StatelessWidget {
   @override
@@ -32,10 +32,9 @@ class _testState extends State<test> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-              Image.asset(
-                "assets/Login.png",
-              
-              ),
+            Image.asset(
+              "assets/Login.png",
+            ),
             const Text("Welcome To Smarket",
                 style: TextStyle(
                     fontSize: 26,
@@ -52,7 +51,7 @@ class _testState extends State<test> {
             SizedBox(
               height: 50,
             ),
-             Container(
+            Container(
                 margin: const EdgeInsets.all(2),
                 height: 40,
                 child: TextFormField(
@@ -63,10 +62,13 @@ class _testState extends State<test> {
                       prefixIcon: Icon(Icons.lock_outline),
                       prefixIconColor: Color(0xff9D9D9D),
                       hintText: "Email",
-                      hintStyle: TextStyle(color: Color(0xff9D9D9D),fontSize: 14,fontWeight:FontWeight.w400)),
+                      hintStyle: TextStyle(
+                          color: Color(0xff9D9D9D),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400)),
                 )),
             // ignore: avoid_unnecessary_containers
-           Container(
+            Container(
                 margin: const EdgeInsets.all(2),
                 height: 40,
                 child: TextFormField(
@@ -77,9 +79,12 @@ class _testState extends State<test> {
                       prefixIcon: Icon(Icons.lock_outline),
                       prefixIconColor: Color(0xff9D9D9D),
                       hintText: "current Password",
-                      hintStyle: TextStyle(color: Color(0xff9D9D9D),fontSize: 14,fontWeight:FontWeight.w400)),
+                      hintStyle: TextStyle(
+                          color: Color(0xff9D9D9D),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400)),
                 )),
-                Container(
+            Container(
                 margin: const EdgeInsets.all(2),
                 height: 40,
                 child: TextFormField(
@@ -100,13 +105,13 @@ class _testState extends State<test> {
               padding: const EdgeInsets.only(top: 50, bottom: 10),
               child: ElevatedButton(
                   onPressed: () {
-                         Navigator.of(context).push(MaterialPageRoute(builder:(context){
-                      return login();
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return LoginScreen();
                     }));
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffFAA933)
-),
+                      backgroundColor: Color(0xffFAA933)),
                   child: const Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -122,10 +127,7 @@ class _testState extends State<test> {
                     ),
                   )),
             )
-            
           ],
-
-          
         ),
       ),
     ));
