@@ -5,6 +5,7 @@ import 'package:linked_all_pages/screens/favorites.dart';
 import 'package:linked_all_pages/screens/profile.dart';
 import 'package:linked_all_pages/shop/shop_screen.dart';
 import '../Categories/category_screen.dart';
+import '../profile_screen/edit_profile.dart';
 import '../profile_screen/profile_screen.dart';
 import 'charttt.dart';
 
@@ -32,7 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
       favorites(),
       chart(),
       ProductDetailsWidget(token: widget.token),
-      profile_screen(token: widget.token)
+      profile_screen(token: widget.token),
+      EditProfile(
+        token: widget.token,
+      ),
     ];
   }
 

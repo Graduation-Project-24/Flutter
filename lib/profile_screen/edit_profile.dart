@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:linked_all_pages/profile_screen/profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
@@ -15,23 +16,15 @@ class EditProfile extends StatefulWidget {
   _ProfileEditorState createState() => _ProfileEditorState();
 }
 
-pickImage(ImageSource source) async {
-  final ImagePicker _imagePicker = ImagePicker();
-  XFile? _file = await _imagePicker.pickImage(source: source);
-  if (_file != null) {
-    return await _file.readAsBytes();
-  }
-  print("no image is selected");
-}
-
 class _ProfileEditorState extends State<EditProfile> {
+  final ImagePicker _imagePicker = ImagePicker();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController birthdayController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController stateController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   Uint8List? _image;
 
   @override
@@ -43,19 +36,32 @@ class _ProfileEditorState extends State<EditProfile> {
   void decodeToken() {
     try {
       Map<String, dynamic> tokenData = Jwt.parseJwt(widget.token);
-
       setState(() {
+        print(tokenData);
+        usernameController.text = tokenData['unique_name'] ?? '';
         firstNameController.text = tokenData['given_name'] ?? '';
         lastNameController.text = tokenData['family_name'] ?? '';
         emailController.text = tokenData['email'] ?? '';
-        phoneController.text = tokenData['mobilephone'] ?? '';
+        phoneController.text = tokenData[
+                "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/mobilephone"] ??
+            '';
         birthdayController.text = tokenData['birthdate'] ?? '';
-        cityController.text = tokenData['City'] ?? '';
-        stateController.text = tokenData['state'] ?? '';
+        addressController.text = tokenData[
+                "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/streetaddress"] ??
+            '';
       });
     } catch (e) {
       print("Error decoding token: $e");
     }
+  }
+
+  Future<Uint8List?> pickImage(ImageSource source) async {
+    XFile? _file = await _imagePicker.pickImage(source: source);
+    if (_file != null) {
+      return await _file.readAsBytes();
+    }
+    print("No image is selected");
+    return null;
   }
 
   void deleteImage() {
@@ -65,24 +71,23 @@ class _ProfileEditorState extends State<EditProfile> {
   }
 
   void selectImage() async {
-    Uint8List img = await pickImage(ImageSource.gallery);
-    setState(() {
-      _image = img;
-    });
+    Uint8List? img = await pickImage(ImageSource.gallery);
+    if (img != null) {
+      setState(() {
+        _image = img;
+      });
+    }
   }
 
   Future<void> editProfile(BuildContext context) async {
     try {
       var url =
-          Uri.parse("https://www.smarketp.somee.com/api/Account/EditUser");
+          Uri.parse("https://www.smarketp.somee.com/api/Account/EditUserV2");
       var userData = {
-        "email": emailController.text,
-        "family_name": lastNameController.text,
-        "given_name": firstNameController.text,
-        "mobilephone": phoneController.text,
-        "City": cityController.text,
-        "birthdate": birthdayController.text,
-        "state": stateController.text
+        "LastName": lastNameController.text,
+        "FirstName": firstNameController.text,
+        "PhoneNumber": phoneController.text,
+        "City": addressController.text,
       };
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -103,11 +108,37 @@ class _ProfileEditorState extends State<EditProfile> {
       );
 
       if (response.statusCode == 200) {
-        print("Profile updated successfully");
+        var responseData = jsonDecode(response.body);
+        var newToken = responseData['token'];
+        await prefs.setString('token', newToken);
+
+        // Update the state with new data
+        setState(() {
+          // Update controllers with new data
+          lastNameController.text = userData["LastName"]!;
+          firstNameController.text = userData["FirstName"]!;
+          phoneController.text = userData["PhoneNumber"]!;
+          addressController.text = userData["City"]!;
+        });
+
+        // Decode the new token to update other fields
+        decodeToken();
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Profile updated successfully"),
+          ),
+        );
+        // Navigate to the profile screen
+// Navigate to the profile screen with the new token
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => profile_screen(token: newToken),
+          ),
+        );
       } else {
         print("Update failed with status code: ${response.statusCode}");
         print("Response body: ${response.body}");
-        // You can show a Snackbar or Dialog with the error message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to update profile: ${response.statusCode}'),
@@ -116,7 +147,6 @@ class _ProfileEditorState extends State<EditProfile> {
       }
     } catch (e) {
       print("Error: $e");
-      // Handle other types of errors (e.g., network errors)
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('An error occurred: $e'),
@@ -136,13 +166,13 @@ class _ProfileEditorState extends State<EditProfile> {
         children: [
           _buildProfileImage(),
           _buildButtonRow(),
+          _buildTextField(usernameController, 'Username', enabled: false),
           _buildTextField(firstNameController, 'First Name'),
           _buildTextField(lastNameController, 'Last Name'),
-          _buildTextField(emailController, 'Email'),
+          _buildTextField(emailController, 'Email', enabled: false),
           _buildTextField(phoneController, 'Phone Number'),
-          _buildTextField(birthdayController, 'Birthday'),
-          _buildTextField(cityController, 'City'),
-          _buildTextField(stateController, 'State'),
+          _buildTextField(birthdayController, 'Birthday', enabled: false),
+          _buildTextField(addressController, 'Address'),
           SizedBox(height: 20),
         ],
       ),
@@ -153,16 +183,11 @@ class _ProfileEditorState extends State<EditProfile> {
     return Center(
       child: Stack(
         children: [
-          _image != null
-              ? CircleAvatar(
-                  radius: 50,
-                  backgroundImage: MemoryImage(_image!),
-                )
-              : CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage(
-                      "https://storage.needpix.com/rsynced_images/blank-profile-picture-973460_1280.png"),
-                ),
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: NetworkImage(
+                "https://cdn.discordapp.com/attachments/774374679728488480/1217890870473396264/child-1837375_1280.png?ex=6605ac42&is=65f33742&hm=5685ff5f6f5a97249ba2c192871714ed917c427960ab5f84ce7f2d1da1f8fe10&"),
+          ),
           Positioned(
             child: IconButton(
               onPressed: () {
@@ -182,55 +207,42 @@ class _ProfileEditorState extends State<EditProfile> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        MaterialButton(
-          onPressed: () {
-            editProfile(context);
-          },
-          height: 33,
-          minWidth: 90,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          color: Color(0xff3f4c54),
-          child: Text(
-            "Replace",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
+        _buildButton("Confirm Edit", () => editProfile(context),
+            color: Color(0xff3f4c54)),
         SizedBox(width: 10),
-        MaterialButton(
-          onPressed: () {
-            // Handle delete image
-            showbottomsheet();
-          },
-          height: 33,
-          minWidth: 90,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          color: Color.fromARGB(255, 255, 157, 11),
-          child: Text(
-            "Delete image",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
+        _buildButton("Delete Image", () => showBottomSheet(),
+            color: Color.fromARGB(255, 255, 157, 11)),
       ],
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String labelText) {
+  Widget _buildButton(String text, VoidCallback onPressed, {Color? color}) {
+    return MaterialButton(
+      onPressed: onPressed,
+      height: 33,
+      minWidth: 90,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      color: color,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField(TextEditingController controller, String labelText,
+      {bool enabled = true}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8),
       child: TextField(
         controller: controller,
+        enabled: enabled,
         decoration: InputDecoration(
           labelText: labelText,
           border: OutlineInputBorder(),
@@ -239,71 +251,76 @@ class _ProfileEditorState extends State<EditProfile> {
     );
   }
 
-  showbottomsheet() {
-    return showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            height: 250,
-            padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-            decoration: BoxDecoration(
-                color: Color(0xFF354249),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InkWell(
-                  onTap: (() {}),
-                  child: Text(
-                    "Deleting",
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                InkWell(
-                    onTap: () {},
-                    child: Text(
-                      "Are you sure that you want to delete this cute image?",
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white),
-                    )),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  width: 450,
-                  height: 50,
-                  padding: const EdgeInsets.only(top: 10),
-                  child: ElevatedButton(
-                    child: Text(
-                      "Delete",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    onPressed: () {
-                      deleteImage();
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        backgroundColor: Color(0xFFFA3333)),
-                  ),
-                )
-              ],
+  void showBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 250,
+          padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+          decoration: BoxDecoration(
+            color: Color(0xFF354249),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
             ),
-          );
-        });
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Text(
+                  "Deleting",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              InkWell(
+                onTap: () {},
+                child: Text(
+                  "Are you sure that you want to delete this cute image?",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
+              Container(
+                width: 450,
+                height: 50,
+                padding: const EdgeInsets.only(top: 10),
+                child: ElevatedButton(
+                  onPressed: () {
+                    deleteImage();
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Delete",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: Color(0xFFFA3333),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

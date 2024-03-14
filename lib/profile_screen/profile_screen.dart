@@ -121,8 +121,9 @@ class profile_screen extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text("Phone Number"),
-                            subtitle: Text(
-                                userInfo['mobilephone'] ?? 'No Phone Number'),
+                            subtitle: Text(userInfo[
+                                    'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/mobilephone'] ??
+                                'No Phone Number'),
                             leading: Icon(
                               Icons.phone,
                               color: Colors.black,
@@ -134,8 +135,7 @@ class profile_screen extends StatelessWidget {
                           ListTile(
                             title: Text("Address"),
                             subtitle: Text(
-                                '${userInfo['City']}, ${userInfo['State'] ?? 'No State'}, ${userInfo['City']}' ??
-                                    'No City'),
+                                '${userInfo['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/streetaddress']}'),
                             leading: Icon(
                               Icons.location_on,
                               color: Colors.black,
