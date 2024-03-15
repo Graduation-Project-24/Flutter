@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/login/login_screen.dart';
-class Signup2 extends StatelessWidget {
-  const Signup2({super.key});
+class Sign_up extends StatelessWidget {
+  const Sign_up({super.key});
 
   @override
   Widget build(BuildContext context) {

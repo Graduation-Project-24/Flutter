@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/Widgets/home_widget.dart';
 import 'package:linked_all_pages/screens/home_screen.dart';
+import 'package:linked_all_pages/signup/sign2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'login_model.dart';
 import 'login_service.dart';
 
@@ -196,7 +195,10 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.only(top: 10),
       child: ElevatedButton(
         onPressed: () {
-          // Navigate to signup screen
+        Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Sign_up()),
+      );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(186, 213, 226, 234),
