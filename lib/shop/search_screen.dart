@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/screens/forget1.dart';
+import 'package:linked_all_pages/shop/shop_screen.dart';
 import 'dart:convert';
 import '../productDetails/product_details_screen.dart';
-import '../screens/edit.dart';
 
 class ProductSearchPage extends StatefulWidget {
   final String? token;
@@ -65,7 +65,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return edit();
+                  return forget(); // make it to shopping
                 }));
               },
               icon:
