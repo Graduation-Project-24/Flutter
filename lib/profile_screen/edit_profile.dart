@@ -180,23 +180,28 @@ class _ProfileEditorState extends State<EditProfile> {
   }
 
   Widget _buildProfileImage() {
+    Map<String, dynamic> tokenData = Jwt.parseJwt(widget.token);
+    String? imageUrl = tokenData['imageUrl'];
+
     return Center(
       child: Stack(
         children: [
           CircleAvatar(
             radius: 50,
-            backgroundImage: NetworkImage(
-                "https://cdn.discordapp.com/attachments/774374679728488480/1217890870473396264/child-1837375_1280.png?ex=6605ac42&is=65f33742&hm=5685ff5f6f5a97249ba2c192871714ed917c427960ab5f84ce7f2d1da1f8fe10&"),
+            backgroundImage: imageUrl != null
+                ? NetworkImage(imageUrl)
+                : AssetImage('assets/ProfileImage.png')
+                    as ImageProvider<Object>?,
           ),
           Positioned(
+            bottom: -10,
+            left: 60,
             child: IconButton(
               onPressed: () {
                 selectImage();
               },
               icon: Icon(Icons.add_a_photo_outlined),
             ),
-            bottom: -10,
-            left: 60,
           ),
         ],
       ),
