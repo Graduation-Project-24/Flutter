@@ -77,16 +77,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
+                    height: 50,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
                         ClipOval(
                           child: Image.network(
                             categories[index].image['url'],
@@ -95,20 +93,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 8),
                         Text(
                           categories[index].name,
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                             color: Color(0xff263238),
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        )
                       ],
                     ),
                   ),

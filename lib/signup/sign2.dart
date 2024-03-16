@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/login/login_screen.dart';
+
 class Sign_up extends StatelessWidget {
   const Sign_up({super.key});
 
@@ -32,7 +33,8 @@ class _TestState extends State<Test> {
 
   Future<void> signUp(BuildContext context) async {
     try {
-      var url = Uri.parse("https://www.smarketp.somee.com/api/Account/register");
+      var url =
+          Uri.parse("https://www.smarketp.somee.com/api/Account/register");
       var userData = {
         "firstName": firstNameController.text,
         "lastName": lastNameController.text,
@@ -169,7 +171,7 @@ class _TestState extends State<Test> {
                     await signUp(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 255, 157, 11),
+                    backgroundColor: const Color.fromARGB(255, 255, 157, 11),
                   ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -185,12 +187,13 @@ class _TestState extends State<Test> {
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
                       return LoginScreen();
                     }));
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(186, 213, 226, 234),
+                    backgroundColor: const Color.fromARGB(186, 213, 226, 234),
                   ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -211,5 +214,3 @@ class _TestState extends State<Test> {
     );
   }
 }
- 
-
