@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linked_all_pages/screens/forget1.dart';
 import 'package:linked_all_pages/screens/home_screen.dart';
 import 'package:linked_all_pages/signup/sign2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -147,12 +148,14 @@ class _LoginScreenState extends State<LoginScreen> {
       obscureText: isSecurePassword,
       decoration: InputDecoration(
         suffixIcon: IconButton(
+          icon: isSecurePassword
+              ? const Icon(Icons.remove_red_eye)
+              : const Icon(Icons.visibility_off),
           onPressed: () {
             setState(() {
               isSecurePassword = !isSecurePassword;
             });
           },
-          icon: const Icon(Icons.remove_red_eye),
         ),
         prefixIcon: const Icon(Icons.lock),
         hintText: "Password",
@@ -181,7 +184,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         TextButton(
           onPressed: () {
-            // Navigate to forgot password screen
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => forget()),
+            );
           },
           child: const Text("Forget password?"),
         ),
@@ -195,10 +201,10 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.only(top: 10),
       child: ElevatedButton(
         onPressed: () {
-        Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Sign_up()),
-      );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Sign_up()),
+          );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(186, 213, 226, 234),
