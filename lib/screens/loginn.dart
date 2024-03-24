@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:linked_all_pages/brand/brands_screen.dart';
 import 'package:linked_all_pages/screens/auth_screens/auth_cubit/auth_states.dart';
+import 'package:linked_all_pages/screens/categories.dart';
+import 'package:linked_all_pages/screens/home_screen.dart';
+import '../Categoriess/test_design.dart';
 import '../Widgets/text_field_widget.dart';
 import 'auth_screens/auth_cubit/auth_cubit.dart';
 import 'auth_screens/register_screen.dart';
@@ -129,7 +133,7 @@ class _loginScreenState extends State<loginScreen>
                           onPressed: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
-                              return forget();
+                              return HomeScreen();
                             }));
                           },
                           child: const Text("Forget password?")),

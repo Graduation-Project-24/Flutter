@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/screens/login.dart';
 
-
 class Changepassword extends StatelessWidget {
+  const Changepassword({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -32,10 +33,9 @@ class _testState extends State<test> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-              Image.asset(
-                "assets/Login.png",
-              
-              ),
+            Image.asset(
+              "assets/Login.png",
+            ),
             const Text("Welcome To Smarket",
                 style: TextStyle(
                     fontSize: 26,
@@ -49,10 +49,10 @@ class _testState extends State<test> {
                     fontSize: 24,
                     fontWeight: FontWeight.w400,
                     color: Color(0xff364a5a))),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
-             Container(
+            Container(
                 margin: const EdgeInsets.all(2),
                 height: 40,
                 child: TextFormField(
@@ -63,10 +63,13 @@ class _testState extends State<test> {
                       prefixIcon: Icon(Icons.lock_outline),
                       prefixIconColor: Color(0xff9D9D9D),
                       hintText: "Email",
-                      hintStyle: TextStyle(color: Color(0xff9D9D9D),fontSize: 14,fontWeight:FontWeight.w400)),
+                      hintStyle: TextStyle(
+                          color: Color(0xff9D9D9D),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400)),
                 )),
             // ignore: avoid_unnecessary_containers
-           Container(
+            Container(
                 margin: const EdgeInsets.all(2),
                 height: 40,
                 child: TextFormField(
@@ -77,9 +80,12 @@ class _testState extends State<test> {
                       prefixIcon: Icon(Icons.lock_outline),
                       prefixIconColor: Color(0xff9D9D9D),
                       hintText: "current Password",
-                      hintStyle: TextStyle(color: Color(0xff9D9D9D),fontSize: 14,fontWeight:FontWeight.w400)),
+                      hintStyle: TextStyle(
+                          color: Color(0xff9D9D9D),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400)),
                 )),
-                Container(
+            Container(
                 margin: const EdgeInsets.all(2),
                 height: 40,
                 child: TextFormField(
@@ -92,7 +98,7 @@ class _testState extends State<test> {
                       hintText: "new Password",
                       hintStyle: TextStyle(color: Color(0xff9D9D9D))),
                 )),
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
             Container(
@@ -100,17 +106,17 @@ class _testState extends State<test> {
               padding: const EdgeInsets.only(top: 50, bottom: 10),
               child: ElevatedButton(
                   onPressed: () {
-                         Navigator.of(context).push(MaterialPageRoute(builder:(context){
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
                       return login();
                     }));
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffFAA933)
-),
-                  child: const Center(
+                      backgroundColor: const Color(0xffFAA933)),
+                  child: Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text(
                           "Confirm",
                           style: TextStyle(
@@ -122,10 +128,7 @@ class _testState extends State<test> {
                     ),
                   )),
             )
-            
           ],
-
-          
         ),
       ),
     ));

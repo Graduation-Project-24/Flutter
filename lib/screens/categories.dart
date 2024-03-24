@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Widgets/home_widget.dart';
+import '../home/home_widget.dart';
 import '../Widgets/product_card.dart';
 import 'home_screen.dart';
 

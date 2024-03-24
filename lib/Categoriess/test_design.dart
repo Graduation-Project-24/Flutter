@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:linked_all_pages/Categoriess/category_model.dart';
 import 'package:linked_all_pages/screens/cate%20test.dart';
+
 class TestDesign extends StatefulWidget {
   const TestDesign({Key? key});
 
@@ -24,8 +25,8 @@ class _TestDesignState extends State<TestDesign> {
   }
 
   Future<void> fetchCategories() async {
-    final response =
-        await http.get(Uri.parse('https://www.smarketp.somee.com/api/Category'));
+    final response = await http
+        .get(Uri.parse('https://www.smarketp.somee.com/api/Category'));
 
     if (response.statusCode == 200) {
       final List<dynamic> responseData = json.decode(response.body);
@@ -51,7 +52,8 @@ class _TestDesignState extends State<TestDesign> {
 }
 
 class TestDesignWidget extends StatelessWidget {
-  const TestDesignWidget({Key? key, required this.categories}) : super(key: key);
+  const TestDesignWidget({Key? key, required this.categories})
+      : super(key: key);
 
   final List<CategoryModel> categories;
 
