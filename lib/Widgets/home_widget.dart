@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:linked_all_pages/Widgets/product_card.dart';
 import 'package:linked_all_pages/productDetails/product_details_screen.dart';
 
+import '../Chatbot/chatbot.dart';
 import '../profile_screen/profile_screen.dart';
 import '../shop/search_screen.dart';
 
@@ -40,7 +41,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ProductSearchPage()));
+                        builder: (context) => ChatbotPage()));
               });
             },
             child: Container(

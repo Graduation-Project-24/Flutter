@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:linked_all_pages/screens/charttt.dart';
+import 'package:linked_all_pages/screens/forget1.dart';
 
 import 'checkout_2.dart';
 
@@ -44,7 +44,7 @@ class _testState extends State<test> {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return chart();
+                  return forget(); // change to cartscreen
                 }));
               },
               icon: const Icon(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/screens/charttt.dart';
 
 Widget ProductCard(String image, String name, String price) {
   return Container(

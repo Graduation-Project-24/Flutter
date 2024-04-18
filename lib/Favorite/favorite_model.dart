@@ -3,15 +3,16 @@ class Favorite {
   final String productName;
   final String imageUrl;
   final String description;
+  final double price;
   final List<Map<String, dynamic>> reviews;
 
-  Favorite({
-    required this.productId,
-    required this.productName,
-    required this.imageUrl,
-    required this.description,
-    required this.reviews,
-  });
+  Favorite(
+      {required this.productId,
+      required this.productName,
+      required this.imageUrl,
+      required this.description,
+      required this.reviews,
+      required this.price});
 
   factory Favorite.fromJson(Map<String, dynamic> json) {
     return Favorite(
@@ -19,7 +20,11 @@ class Favorite {
       productName: json['productName'] ?? "",
       imageUrl: json['imageUrl'] ?? "",
       description: json['description'] ?? "",
+      price: json['price'] ?? 0.0,
       reviews: List<Map<String, dynamic>>.from(json['reviews'] ?? []),
     );
+  }
+  List<int> extractReviewRates() {
+    return reviews.map((review) => review['rate'] as int).toList();
   }
 }

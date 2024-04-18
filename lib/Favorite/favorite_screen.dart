@@ -50,15 +50,6 @@ class _FavoritesState extends State<Favorites> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.chevron_left,
-            color: Color(0xff384959),
-          ),
-        ),
         centerTitle: true,
         title: const Text(
           "Favorites",
@@ -80,7 +71,7 @@ class _FavoritesState extends State<Favorites> {
                     itemCount: favoritesData.length,
                     itemBuilder: (BuildContext context, int index) {
                       final favorite = favoritesData[index];
-                      // Inside the ListView.builder's itemBuilder method
+                      List<int> reviewRates = favorite.extractReviewRates();
                       return GestureDetector(
                         onTap: () {
                           // Navigate to product details page
@@ -138,10 +129,9 @@ class _FavoritesState extends State<Favorites> {
                                             const EdgeInsets.only(left: 10),
                                         margin:
                                             const EdgeInsets.only(bottom: 5),
-                                        child: const Text(
-                                          // favorite.price, // There's no price field in the model
-                                          '100 L.E', // Placeholder for price
-                                          style: TextStyle(
+                                        child: Text(
+                                          favorite.price.toString(),
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,
                                             fontWeight: FontWeight.w700,
@@ -175,21 +165,20 @@ class _FavoritesState extends State<Favorites> {
                                                   Icons.star,
                                                   color: Color(0xffFFC120),
                                                 ),
-                                                const Text(
-                                                  // favorite.reviews.rate.toString(), // Update this line
-                                                  '4.5', // Placeholder for rate
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
+                                                // Text(
+                                                //   reviewRates.toString(),
+                                                //   style: const TextStyle(
+                                                //     color: Colors.black,
+                                                //     fontSize: 12,
+                                                //     fontWeight: FontWeight.w400,
+                                                //   ),
+                                                // ),
                                               ],
                                             ),
                                             const SizedBox(width: 10),
-                                            const Text(
-                                              '1 Reviews', // Placeholder for reviews
-                                              style: TextStyle(
+                                            Text(
+                                              '${favorite.reviews.length} Review${favorite.reviews.length != 1 ? 's' : ''}',
+                                              style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w400,
@@ -200,7 +189,7 @@ class _FavoritesState extends State<Favorites> {
                                       )
                                     ],
                                   ),
-                                  const Spacer(), // Add Spacer to push the heart icon to the right
+                                  const Spacer(),
                                 ],
                               ),
                               Positioned(
@@ -208,8 +197,7 @@ class _FavoritesState extends State<Favorites> {
                                 right: 10,
                                 child: GestureDetector(
                                   onTap: () {
-                                    removeFromFavorites(
-                                        favorite.productId); // Update this line
+                                    removeFromFavorites(favorite.productId);
                                   },
                                   child: const Icon(
                                     Icons.favorite,

@@ -27,18 +27,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF0F5F8),
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    HomeScreen(token: widget.token), // Pass token to HomeScreen
-              ),
-            );
-          },
-          icon: const Icon(Icons.chevron_left, color: Colors.black),
-        ),
         centerTitle: true,
         title: const Text(
           "Categories",

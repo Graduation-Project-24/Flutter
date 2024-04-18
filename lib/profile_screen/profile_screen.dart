@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:linked_all_pages/Cart/cart_screen.dart';
 import 'package:linked_all_pages/Widgets/home_widget.dart';
 import 'package:linked_all_pages/profile_screen/edit_profile.dart';
 import 'package:linked_all_pages/profile_screen/logout.dart';
 import 'package:linked_all_pages/screens/about_screen.dart';
-import 'package:linked_all_pages/screens/charttt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../login/login_screen.dart';
 
@@ -37,8 +37,12 @@ class profile_screen extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => chart()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CartScreen(
+                                token: token,
+                              )));
                 },
                 icon: const Icon(Icons.shopping_cart_outlined,
                     color: Colors.white))
