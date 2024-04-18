@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:linked_all_pages/Widgets/home_widget.dart';
 import 'package:linked_all_pages/productDetails/product_details_screen.dart';
 import 'package:linked_all_pages/shop/shop_screen.dart';
+import '../Cart/cart_screen.dart';
 import '../Categories/category_screen.dart';
 import '../Favorite/favorite_screen.dart';
 import '../profile_screen/edit_profile.dart';
 import '../profile_screen/profile_screen.dart';
-import 'charttt.dart';
 
 class HomeScreen extends StatefulWidget {
   final String token;
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ShoppingScreen(token: widget.token),
       CategoryScreen(token: widget.token),
       Favorites(token: widget.token),
-      chart(),
+      CartScreen(token: widget.token),
       ProductDetailsWidget(token: widget.token),
       profile_screen(token: widget.token),
       EditProfile(
@@ -55,9 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
               icon: Icon(Icons.local_offer), label: "Categories"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: "favorites"),
+              icon: Icon(Icons.favorite), label: "Favorites"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: "cart"),
+              icon: Icon(Icons.shopping_cart), label: "Cart"),
         ],
         onTap: (index) {
           setState(() {
