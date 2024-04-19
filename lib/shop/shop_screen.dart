@@ -137,15 +137,6 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF0F5F8),
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                  builder: (context) => forget()), // change to home
-            );
-          },
-          icon: const Icon(Icons.chevron_left, color: Colors.white),
-        ),
         centerTitle: true,
         title: const Padding(
           padding: EdgeInsets.only(top: 20),

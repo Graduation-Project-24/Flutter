@@ -182,6 +182,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
             ),
             const SizedBox(height: 20.0),
             Container(
+              width: 900,
               color: Color(0xFFF6F6F6),
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
@@ -208,7 +209,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                     ),
                     Container(
                       padding: const EdgeInsets.all(10),
-                      height: 250,
+                      height: 280,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: productData['productDtoFilters'].length,
@@ -219,7 +220,9 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                             padding: const EdgeInsets.all(8.0),
                             child: ProductCard(
                               filter['imageUrl'],
-                              filter['name'],
+                              filter['name'].length > 20
+                                  ? '${filter['name'].substring(0, 20)}...'
+                                  : filter['name'],
                               '',
                             ),
                           );
