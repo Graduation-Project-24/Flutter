@@ -4,7 +4,7 @@ class CartItem {
   final double price;
   final double listPrice;
   final String productImageUrl;
-  int quantity; // Added quantity field
+  int count;
   double totalprice;
 
   CartItem({
@@ -13,7 +13,7 @@ class CartItem {
     required this.price,
     required this.listPrice,
     required this.productImageUrl,
-    this.quantity = 1,
+    required this.count,
     this.totalprice = 0,
   });
 
@@ -24,6 +24,7 @@ class CartItem {
       price: json['price'].toDouble(),
       listPrice: json['listPrice'].toDouble(),
       productImageUrl: json['productImageUrl'],
+      count: json['count'],
     );
   }
 }

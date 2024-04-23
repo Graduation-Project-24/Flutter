@@ -13,7 +13,7 @@ class Favorites extends StatefulWidget {
 }
 
 class _FavoritesState extends State<Favorites> {
-  List<Favorite> favoritesData = []; // Change the type to Favorite
+  List<Favorite> favoritesData = []; 
   bool isLoading = true;
 
   @override
@@ -71,7 +71,6 @@ class _FavoritesState extends State<Favorites> {
                     itemCount: favoritesData.length,
                     itemBuilder: (BuildContext context, int index) {
                       final favorite = favoritesData[index];
-                      List<int> reviewRates = favorite.extractReviewRates();
                       return GestureDetector(
                         onTap: () {
                           // Navigate to product details page

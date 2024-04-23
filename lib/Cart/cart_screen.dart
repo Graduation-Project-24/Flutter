@@ -49,15 +49,15 @@ class _CartScreenState extends State<CartScreen> {
 
   void _incrementQuantity(CartItem cartItem) {
     setState(() {
-      cartItem.quantity++;
+      cartItem.count++;
       _updateTotalPrice();
     });
   }
 
   void _decrementQuantity(CartItem cartItem) {
     setState(() {
-      if (cartItem.quantity > 1) {
-        cartItem.quantity--;
+      if (cartItem.count > 1) {
+        cartItem.count--;
         _updateTotalPrice();
       }
     });
@@ -138,7 +138,7 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                           ),
                           Text(
-                            '  ${cartItem.quantity}  ',
+                            '  ${cartItem.count}  ',
                             style: TextStyle(fontSize: 16),
                           ),
                           GestureDetector(
@@ -213,7 +213,7 @@ class _CartScreenState extends State<CartScreen> {
   double getTotalPrice(List<CartItem> cartItems) {
     double totalPrice = 0;
     for (var cartItem in cartItems) {
-      totalPrice += cartItem.price * cartItem.quantity;
+      totalPrice += cartItem.price * cartItem.count;
     }
     return totalPrice;
   }

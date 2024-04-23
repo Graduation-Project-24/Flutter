@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/productDetails/product_service.dart';
+import '../Cart/cart_screen.dart';
 import 'product_model.dart';
 
 class ProductDetailsWidget extends StatefulWidget {
@@ -15,12 +16,30 @@ class ProductDetailsWidget extends StatefulWidget {
 class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
   late Future<Map<String, dynamic>> _productDetails;
   bool isFavorite = false;
+  
   @override
   void initState() {
     super.initState();
     _productDetails = fetchProductDetails(widget.productId as int);
+     checkFavoriteStatus();
   }
 
+// Method to check favorite status for the current product
+  void checkFavoriteStatus() async {
+    if (widget.token != null) {
+      try {
+        // Make API call to check if the product is in favorites
+        final bool isFav = await ProductService.checkFavorite(
+            widget.productId as int, widget.token!);
+        setState(() {
+          isFavorite = isFav; 
+        });
+      } catch (e) {
+        // Handle error
+        print('Error checking favorite status: $e');
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
@@ -49,7 +68,15 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CartScreen(
+                          token: widget.token as String,
+                        )),
+              );
+            },
             icon: const Icon(
               Icons.shopping_cart_outlined,
               color: Color(0xff384959),
@@ -86,9 +113,9 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Overview',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w800,
                     color: Color(0xFFFAA933),
@@ -198,13 +225,6 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                             fontSize: 14,
                           ),
                         ),
-                        InkWell(
-                          onTap: () {},
-                          child: const Text(
-                            'See All',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        )
                       ],
                     ),
                     Container(
@@ -216,14 +236,29 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                         itemBuilder: (context, index) {
                           final filter =
                               productData['productDtoFilters'][index];
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ProductCard(
-                              filter['imageUrl'],
-                              filter['name'].length > 20
-                                  ? '${filter['name'].substring(0, 20)}...'
-                                  : filter['name'],
-                              '',
+                          return GestureDetector(
+                            onTap: () {
+                              // Navigate to product details screen, you can use Navigator.push
+                              // Here, you would typically pass the product details or ID to the details screen
+                              // For example:
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProductDetailsWidget(
+                                          productId: filter['productId'],
+                                          token: widget.token,
+                                        )),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ProductCard(
+                                filter['imageUrl'],
+                                filter['name'].length > 20
+                                    ? '${filter['name'].substring(0, 20)}...'
+                                    : filter['name'],
+                                '',
+                              ),
                             ),
                           );
                         },
@@ -242,12 +277,21 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Color(0xFFFAA933)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
+                    const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  // Call the addToCart method with the productId and token
+                  ProductService.addToCart(
+                          widget.productId as int, widget.token as String, 1)
+                      .catchError((error) {
+                    // Handle error
+                    print(error);
+                    // You can also display an error message here
+                  });
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(

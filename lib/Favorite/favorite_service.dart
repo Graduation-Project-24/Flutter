@@ -34,4 +34,6 @@ class FavoriteService {
       print('Failed to remove from favorites');
     }
   }
+
+  
 }
