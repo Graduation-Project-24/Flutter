@@ -168,10 +168,12 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
               children: [
                 TextButton.icon(
                   onPressed: () {
-                    Navigator.of(context).push(
+                    Navigator.of(context).pushReplacement(
                       // MaterialPageRoute(builder: (context) => const SearchScreen()),
                       MaterialPageRoute(
-                          builder: (context) => ProductSearchPage()),
+                          builder: (context) => ProductSearchPage(
+                                token: widget.token,
+                              )),
                     );
                   },
                   label: const Text(

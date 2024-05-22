@@ -40,15 +40,15 @@ class CartService {
     }
   }
 
-  Future<void> removeFromCart(String token, int packageId) async {
+  Future<void> removeFromCart(String token, int productId) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/RemoveFromCart?packageId=$packageId'),
+      Uri.parse('$baseUrl/RemoveFromCart?productId=$productId'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode(<String, dynamic>{
-        'packageId': packageId,
+        'packageId': productId,
       }),
     );
 
