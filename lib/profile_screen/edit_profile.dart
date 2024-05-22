@@ -125,7 +125,7 @@ class _ProfileEditorState extends State<EditProfile> {
         decodeToken();
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text("Profile updated successfully"),
           ),
         );
@@ -159,10 +159,10 @@ class _ProfileEditorState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text('Edit Profile'),
       ),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
           _buildProfileImage(),
           _buildButtonRow(),
@@ -173,7 +173,7 @@ class _ProfileEditorState extends State<EditProfile> {
           _buildTextField(phoneController, 'Phone Number'),
           _buildTextField(birthdayController, 'Birthday', enabled: false),
           _buildTextField(addressController, 'Address'),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
         ],
       ),
     );
@@ -190,7 +190,7 @@ class _ProfileEditorState extends State<EditProfile> {
             radius: 50,
             backgroundImage: imageUrl != null
                 ? NetworkImage(imageUrl)
-                : AssetImage('assets/ProfileImage.png')
+                : const AssetImage('assets/ProfileImage.png')
                     as ImageProvider<Object>?,
           ),
           Positioned(
@@ -200,7 +200,7 @@ class _ProfileEditorState extends State<EditProfile> {
               onPressed: () {
                 selectImage();
               },
-              icon: Icon(Icons.add_a_photo_outlined),
+              icon: const Icon(Icons.add_a_photo_outlined),
             ),
           ),
         ],
@@ -213,10 +213,10 @@ class _ProfileEditorState extends State<EditProfile> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _buildButton("Confirm Edit", () => editProfile(context),
-            color: Color(0xff3f4c54)),
-        SizedBox(width: 10),
+            color: const Color(0xff3f4c54)),
+        const SizedBox(width: 10),
         _buildButton("Delete Image", () => showBottomSheet(),
-            color: Color.fromARGB(255, 255, 157, 11)),
+            color: const Color.fromARGB(255, 255, 157, 11)),
       ],
     );
   }
@@ -232,7 +232,7 @@ class _ProfileEditorState extends State<EditProfile> {
       color: color,
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 14,
           fontWeight: FontWeight.w400,
@@ -244,13 +244,13 @@ class _ProfileEditorState extends State<EditProfile> {
   Widget _buildTextField(TextEditingController controller, String labelText,
       {bool enabled = true}) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(
         controller: controller,
         enabled: enabled,
         decoration: InputDecoration(
           labelText: labelText,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
         ),
       ),
     );
@@ -262,8 +262,8 @@ class _ProfileEditorState extends State<EditProfile> {
       builder: (context) {
         return Container(
           height: 250,
-          padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+          decoration: const BoxDecoration(
             color: Color(0xFF354249),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -275,7 +275,7 @@ class _ProfileEditorState extends State<EditProfile> {
             children: [
               InkWell(
                 onTap: () {},
-                child: Text(
+                child: const Text(
                   "Deleting",
                   style: TextStyle(
                     fontSize: 24,
@@ -284,10 +284,10 @@ class _ProfileEditorState extends State<EditProfile> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               InkWell(
                 onTap: () {},
-                child: Text(
+                child: const Text(
                   "Are you sure that you want to delete this cute image?",
                   style: TextStyle(
                     fontSize: 12,
@@ -296,7 +296,7 @@ class _ProfileEditorState extends State<EditProfile> {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Container(
                 width: 450,
                 height: 50,
@@ -306,7 +306,7 @@ class _ProfileEditorState extends State<EditProfile> {
                     deleteImage();
                     Navigator.pop(context);
                   },
-                  child: Text(
+                  child: const Text(
                     "Delete",
                     style: TextStyle(
                       color: Colors.white,
@@ -318,7 +318,7 @@ class _ProfileEditorState extends State<EditProfile> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    backgroundColor: Color(0xFFFA3333),
+                    backgroundColor: const Color(0xFFFA3333),
                   ),
                 ),
               ),
