@@ -4,7 +4,6 @@ import 'package:linked_all_pages/productDetails/product_details_screen.dart';
 
 import '../Chatbot/chatbot.dart';
 import '../profile_screen/profile_screen.dart';
-import '../shop/search_screen.dart';
 
 class HomeWidget extends StatefulWidget {
   final String token;
@@ -38,10 +37,8 @@ class _HomeWidgetState extends State<HomeWidget> {
           child: GestureDetector(
             onTap: () {
               setState(() {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChatbotPage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ChatbotPage()));
               });
             },
             child: Container(
@@ -56,9 +53,9 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               height: 35,
               alignment: Alignment.center,
-              child: Row(
+              child: const Row(
                 //crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(
                     Icons.search,
                     size: 20,
@@ -149,7 +146,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       const Text('Apparel')
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     children: [
                       Container(
@@ -165,7 +162,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       const Text('Apparel')
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     children: [
                       Container(
@@ -181,7 +178,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       const Text('Apparel')
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     children: [
                       Container(
@@ -197,7 +194,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       const Text('Apparel')
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     children: [
                       Container(
@@ -213,7 +210,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       const Text('Apparel')
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     children: [
                       Container(

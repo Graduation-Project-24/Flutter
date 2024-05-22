@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/Cart/cart_screen.dart';
-import 'package:linked_all_pages/Widgets/home_widget.dart';
 import 'package:linked_all_pages/profile_screen/edit_profile.dart';
 import 'package:linked_all_pages/profile_screen/logout.dart';
 import 'package:linked_all_pages/screens/about_screen.dart';
+import 'package:linked_all_pages/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../login/login_screen.dart';
 
@@ -15,319 +15,317 @@ class profile_screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> userInfo = token != null ? decodeJwt(token!) : {};
+    Map<String, dynamic> userInfo = token != null ? decodeJwt(token) : {};
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .pushReplacement(MaterialPageRoute(builder: (context) {
-                  return HomeWidget(token: token);
-                }));
-              },
-              icon: const Icon(Icons.chevron_left, color: Colors.white)),
-          centerTitle: true,
-          title: const Text(
-            "profile",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16),
-          ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CartScreen(
-                                token: token,
-                              )));
-                },
-                icon: const Icon(Icons.shopping_cart_outlined,
-                    color: Colors.white))
-          ],
-          backgroundColor: const Color(0xff414E56),
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(25),
-                  bottomRight: Radius.circular(25))),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .pushReplacement(MaterialPageRoute(builder: (context) {
+                return HomeScreen(token: token);
+              }));
+            },
+            icon: const Icon(Icons.chevron_left, color: Colors.white)),
+        centerTitle: true,
+        title: const Text(
+          "profile",
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16),
         ),
-        body: Center(
-          child: ListView(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CartScreen(
+                              token: token,
+                            )));
+              },
+              icon:
+                  const Icon(Icons.shopping_cart_outlined, color: Colors.white))
+        ],
+        backgroundColor: const Color(0xff414E56),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(25),
+                bottomRight: Radius.circular(25))),
+      ),
+      body: Center(
+        child: ListView(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(children: [
+                    const Text(
+                      "My Account",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xff000000)),
                     ),
-                    Row(children: [
-                      const Text(
-                        "My Account",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                            color: Color(0xff000000)),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EditProfile(
+                                        token: token,
+                                      )));
+                        },
+                        child: const Icon(Icons.edit))
+                  ]),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 325,
+                    height: 349,
+                    decoration: ShapeDecoration(
+                      color: const Color(0xFFD5E2EA),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => EditProfile(
-                                          token: token,
-                                        )));
-                          },
-                          child: const Icon(Icons.edit))
-                    ]),
-                    const SizedBox(
-                      height: 10,
                     ),
-                    Container(
-                      width: 325,
-                      height: 349,
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFFD5E2EA),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    child: ListView(
+                      children: [
+                        const SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      child: ListView(
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          ListTile(
-                            title: const Text("Username"),
-                            subtitle:
-                                Text(userInfo['unique_name'] ?? 'No Username'),
-                            leading: const Icon(
-                              Icons.badge_sharp,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const Divider(
+                        ListTile(
+                          title: const Text("Username"),
+                          subtitle:
+                              Text(userInfo['unique_name'] ?? 'No Username'),
+                          leading: const Icon(
+                            Icons.badge_sharp,
                             color: Colors.black,
                           ),
-                          ListTile(
-                            title: const Text("Email"),
-                            subtitle:
-                                Text(userInfo['email'] ?? 'No Email Address'),
-                            leading: const Icon(
-                              Icons.email,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const Divider(
-                            color: Colors.black,
-                          ),
-                          ListTile(
-                            title: const Text("Phone Number"),
-                            subtitle: Text(userInfo[
-                                    'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/mobilephone'] ??
-                                'No Phone Number'),
-                            leading: const Icon(
-                              Icons.phone,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const Divider(
-                            color: Colors.black,
-                          ),
-                          ListTile(
-                            title: const Text("Address"),
-                            subtitle: Text(
-                                '${userInfo['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/streetaddress']}'),
-                            leading: const Icon(
-                              Icons.location_on,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 20),
-                        alignment: Alignment.centerLeft,
-                        child: const Text("Addition settings",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w800,
-                                color: Color(0xff000000))),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: 325,
-                      height: 125,
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFFD5E2EA),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                      child: ListView(
-                        children: [
-                          ListTile(
-                            title: const Text("Forget Password"),
-                            leading: const Icon(Icons.language,
-                                color: Color(0xff000000)),
-                            trailing: const Icon(Icons.chevron_right_outlined,
-                                color: Color(0xff000000)),
-                            onTap: () {
-                              /* Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (context) {
-                                return ForgetPassword();
-                              }));*/
-                            },
-                          ),
-                          const Divider(
+                        const Divider(
+                          color: Colors.black,
+                        ),
+                        ListTile(
+                          title: const Text("Email"),
+                          subtitle:
+                              Text(userInfo['email'] ?? 'No Email Address'),
+                          leading: const Icon(
+                            Icons.email,
                             color: Colors.black,
                           ),
-                          ListTile(
-                              title: const Text("Change Password"),
-                              leading: const Icon(Icons.flag,
-                                  color: Color(0xff000000)),
-                              trailing: const Icon(Icons.chevron_right_outlined,
-                                  color: Color(0xff000000)),
-                              onTap: () {
-                                /*  Navigator.of(context)
-                                    .push(MaterialPageRoute(builder: (context) {
-                                  return ForgetPassword();
-                                }));*/
-                              })
-                        ],
-                      ),
+                        ),
+                        const Divider(
+                          color: Colors.black,
+                        ),
+                        ListTile(
+                          title: const Text("Phone Number"),
+                          subtitle: Text(userInfo[
+                                  'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/mobilephone'] ??
+                              'No Phone Number'),
+                          leading: const Icon(
+                            Icons.phone,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const Divider(
+                          color: Colors.black,
+                        ),
+                        ListTile(
+                          title: const Text("Address"),
+                          subtitle: Text(
+                              '${userInfo['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/streetaddress']}'),
+                          leading: const Icon(
+                            Icons.location_on,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
+                  ),
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 20),
                       alignment: Alignment.centerLeft,
-                      child: const Text("Reach Out TO Us ",
+                      child: const Text("Addition settings",
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w800,
                               color: Color(0xff000000))),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: 325,
-                      height: 200,
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFFD5E2EA),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 325,
+                    height: 125,
+                    decoration: ShapeDecoration(
+                      color: const Color(0xFFD5E2EA),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      child: ListView(children: [
+                    ),
+                    child: ListView(
+                      children: [
                         ListTile(
-                            title: const Text("Help"),
-                            leading: const Icon(Icons.help_center_rounded,
-                                color: Color(0xff000000)),
-                            onTap: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (context) {
-                                return const AboutScreen();
-                              }));
-                            }),
-                        const Divider(
-                          color: Colors.black,
-                        ),
-                        ListTile(
-                            title: const Text("Contact Us"),
-                            leading: IconButton(
-                              onPressed: (() {
-                                showBottomSheet(context);
-                              }),
-                              icon: const Icon(Icons.phone),
-                              color: Colors.black,
-                            )),
-                        const Divider(
-                          color: Colors.black,
-                        ),
-                        ListTile(
-                          title: const Text("About us"),
-                          leading: const Icon(
-                            Icons.info,
-                            color: Colors.black,
-                          ),
+                          title: const Text("Forget Password"),
+                          leading: const Icon(Icons.language,
+                              color: Color(0xff000000)),
+                          trailing: const Icon(Icons.chevron_right_outlined,
+                              color: Color(0xff000000)),
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const AboutScreen()));
+                            /* Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return ForgetPassword();
+                              }));*/
                           },
                         ),
-                      ]),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      width: 325,
-                      height: 60,
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFFD5E2EA),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: ListTile(
-                        onTap: () async {
-                          // Show loading indicator
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            },
-                          );
-
-                          LogoutService logoutService = LogoutService();
-                          bool isLoggedOut = await logoutService.logout(token!);
-
-                          // Close loading indicator
-                          Navigator.pop(context);
-
-                          if (isLoggedOut) {
-                            // Delete token from cache
-                            SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                            await prefs.remove('token');
-
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) {
-                              return const LoginScreen();
-                            }));
-                          } else {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return profile_screen(token: token);
-                            }));
-                          }
-                        },
-                        title: const Text("Logout"),
-                        leading: const Icon(
-                          Icons.power_settings_new_sharp,
+                        const Divider(
                           color: Colors.black,
                         ),
+                        ListTile(
+                            title: const Text("Change Password"),
+                            leading: const Icon(Icons.flag,
+                                color: Color(0xff000000)),
+                            trailing: const Icon(Icons.chevron_right_outlined,
+                                color: Color(0xff000000)),
+                            onTap: () {
+                              /*  Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (context) {
+                                  return ForgetPassword();
+                                }));*/
+                            })
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text("Reach Out TO Us ",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                            color: Color(0xff000000))),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 325,
+                    height: 200,
+                    decoration: ShapeDecoration(
+                      color: const Color(0xFFD5E2EA),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                  ],
-                ),
+                    child: ListView(children: [
+                      ListTile(
+                          title: const Text("Help"),
+                          leading: const Icon(Icons.help_center_rounded,
+                              color: Color(0xff000000)),
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return const AboutScreen();
+                            }));
+                          }),
+                      const Divider(
+                        color: Colors.black,
+                      ),
+                      ListTile(
+                          title: const Text("Contact Us"),
+                          leading: IconButton(
+                            onPressed: (() {
+                              showBottomSheet(context);
+                            }),
+                            icon: const Icon(Icons.phone),
+                            color: Colors.black,
+                          )),
+                      const Divider(
+                        color: Colors.black,
+                      ),
+                      ListTile(
+                        title: const Text("About us"),
+                        leading: const Icon(
+                          Icons.info,
+                          color: Colors.black,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const AboutScreen()));
+                        },
+                      ),
+                    ]),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: 325,
+                    height: 60,
+                    decoration: ShapeDecoration(
+                      color: const Color(0xFFD5E2EA),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: ListTile(
+                      onTap: () async {
+                        // Show loading indicator
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                        );
+
+                        LogoutService logoutService = LogoutService();
+                        bool isLoggedOut = await logoutService.logout(token);
+
+                        // Close loading indicator
+                        Navigator.pop(context);
+
+                        if (isLoggedOut) {
+                          // Delete token from cache
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.remove('token');
+
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (context) {
+                            return const LoginScreen();
+                          }));
+                        } else {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return profile_screen(token: token);
+                          }));
+                        }
+                      },
+                      title: const Text("Logout"),
+                      leading: const Icon(
+                        Icons.power_settings_new_sharp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
