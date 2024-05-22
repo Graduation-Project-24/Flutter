@@ -96,51 +96,51 @@ class profile_screen extends StatelessWidget {
                       ),
                       child: ListView(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           ListTile(
-                            title: Text("Username"),
+                            title: const Text("Username"),
                             subtitle:
                                 Text(userInfo['unique_name'] ?? 'No Username'),
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.badge_sharp,
                               color: Colors.black,
                             ),
                           ),
-                          Divider(
+                          const Divider(
                             color: Colors.black,
                           ),
                           ListTile(
-                            title: Text("Email"),
+                            title: const Text("Email"),
                             subtitle:
                                 Text(userInfo['email'] ?? 'No Email Address'),
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.email,
                               color: Colors.black,
                             ),
                           ),
-                          Divider(
+                          const Divider(
                             color: Colors.black,
                           ),
                           ListTile(
-                            title: Text("Phone Number"),
+                            title: const Text("Phone Number"),
                             subtitle: Text(userInfo[
                                     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/mobilephone'] ??
                                 'No Phone Number'),
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.phone,
                               color: Colors.black,
                             ),
                           ),
-                          Divider(
+                          const Divider(
                             color: Colors.black,
                           ),
                           ListTile(
-                            title: Text("Address"),
+                            title: const Text("Address"),
                             subtitle: Text(
                                 '${userInfo['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/streetaddress']}'),
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.location_on,
                               color: Colors.black,
                             ),
@@ -150,7 +150,7 @@ class profile_screen extends StatelessWidget {
                     ),
                     Center(
                       child: Container(
-                        padding: EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.only(left: 20),
                         alignment: Alignment.centerLeft,
                         child: const Text("Addition settings",
                             style: TextStyle(
@@ -229,33 +229,33 @@ class profile_screen extends StatelessWidget {
                       ),
                       child: ListView(children: [
                         ListTile(
-                            title: Text("Help"),
-                            leading: Icon(Icons.help_center_rounded,
+                            title: const Text("Help"),
+                            leading: const Icon(Icons.help_center_rounded,
                                 color: Color(0xff000000)),
                             onTap: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return AboutScreen();
+                                return const AboutScreen();
                               }));
                             }),
-                        Divider(
+                        const Divider(
                           color: Colors.black,
                         ),
                         ListTile(
-                            title: Text("Contact Us"),
+                            title: const Text("Contact Us"),
                             leading: IconButton(
                               onPressed: (() {
                                 showBottomSheet(context);
                               }),
-                              icon: Icon(Icons.phone),
+                              icon: const Icon(Icons.phone),
                               color: Colors.black,
                             )),
-                        Divider(
+                        const Divider(
                           color: Colors.black,
                         ),
                         ListTile(
-                          title: Text("About us"),
-                          leading: Icon(
+                          title: const Text("About us"),
+                          leading: const Icon(
                             Icons.info,
                             color: Colors.black,
                           ),
@@ -287,7 +287,7 @@ class profile_screen extends StatelessWidget {
                             context: context,
                             barrierDismissible: false,
                             builder: (BuildContext context) {
-                              return Center(
+                              return const Center(
                                 child: CircularProgressIndicator(),
                               );
                             },
@@ -316,8 +316,8 @@ class profile_screen extends StatelessWidget {
                             }));
                           }
                         },
-                        title: Text("Logout"),
-                        leading: Icon(
+                        title: const Text("Logout"),
+                        leading: const Icon(
                           Icons.power_settings_new_sharp,
                           color: Colors.black,
                         ),
@@ -339,8 +339,8 @@ class profile_screen extends StatelessWidget {
       builder: (context) {
         return Container(
           height: 250,
-          padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
+          decoration: const BoxDecoration(
               color: Color(0xFF354249),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20))),
@@ -349,7 +349,7 @@ class profile_screen extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {},
-                child: Text(
+                child: const Text(
                   "Contact Us",
                   style: TextStyle(
                       fontSize: 24,
@@ -357,19 +357,19 @@ class profile_screen extends StatelessWidget {
                       color: Colors.white),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               InkWell(
                   onTap: () {},
-                  child: Text(
+                  child: const Text(
                     "    +01274974780",
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color: Colors.white),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
@@ -377,7 +377,7 @@ class profile_screen extends StatelessWidget {
                 height: 50,
                 padding: const EdgeInsets.only(top: 10),
                 child: ElevatedButton(
-                  child: Text(
+                  child: const Text(
                     "Call Us",
                     style: TextStyle(
                         color: Colors.white,
@@ -389,7 +389,7 @@ class profile_screen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    backgroundColor: Color(0xFFFAA933),
+                    backgroundColor: const Color(0xFFFAA933),
                   ),
                 ),
               )

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/screens/forget1.dart';
+import '../Checkout/checkout.dart';
 import 'cart_model.dart';
 import 'cart_service.dart';
 
@@ -181,7 +181,7 @@ class _CartScreenState extends State<CartScreen> {
         onPressed: () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => forget()), // to checkout
+            MaterialPageRoute(builder: (context) => CheckoutPage(token: widget.token,)), // to checkout
           );
         },
         label: Column(
