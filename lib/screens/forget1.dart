@@ -104,8 +104,8 @@ class _testState extends State<test> {
                 padding: const EdgeInsets.only(top: 100),
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
                         return otp();
                       }));
                     },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:linked_all_pages/screens/forget1.dart';
+import 'package:linked_all_pages/Cart/cart_screen.dart';
 import 'package:linked_all_pages/shop/shop_screen.dart';
 import 'dart:convert';
 import '../productDetails/product_details_screen.dart';
@@ -50,7 +50,9 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
             onPressed: () {
               Navigator.of(context)
                   .pushReplacement(MaterialPageRoute(builder: (context) {
-                return forget(); // change to home
+                return ShoppingScreen(
+                  token: widget.token,
+                );
               }));
             },
             icon: const Icon(Icons.chevron_left, color: Colors.white)),
@@ -65,7 +67,9 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return forget(); // make it to shopping
+                  return CartScreen(
+                    token: widget.token as String,
+                  ); // make it to shopping
                 }));
               },
               icon:

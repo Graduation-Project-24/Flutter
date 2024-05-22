@@ -129,7 +129,7 @@ class _otpState extends State<otp> {
               child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
+                        .pushReplacement(MaterialPageRoute(builder: (context) {
                       return LoginScreen();
                     }));
                   },

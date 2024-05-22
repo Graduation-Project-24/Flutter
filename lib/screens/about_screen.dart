@@ -24,7 +24,7 @@ class _AboutScreenState extends State<AboutScreen> {
       CardInfoTeam(
         image: "assets/mai.jpg",
         name: "Mai Allam",
-        job: "Backend Develope",
+        job: "Backend Developer",
       ),
       CardInfoTeam(
         image: "assets/mohamed hazem.jpg",
@@ -74,15 +74,23 @@ class _AboutScreenState extends State<AboutScreen> {
         title: const Text(
           'About',
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 20,
             fontFamily: 'Roboto',
             fontWeight: FontWeight.w700,
+            color: Colors.white,
           ),
         ),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(25),
                 bottomRight: Radius.circular(25))),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios,
+              color: Colors.white), // Custom back icon
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -93,7 +101,14 @@ class _AboutScreenState extends State<AboutScreen> {
               'Who we are',
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
             ),
-            const Text('info about the app'),
+            const Text(
+                'Our Graduation project revolves around a cutting-edge E-Commerce system designed to redefine the online shopping experience. Users can effortlessly place orders through a user-friendly website or mobile application, initiating a seamless process that combines advanced technology and artificial intelligence.'),
+            const Text(
+                'The heart of the system lies in a Raspberry Pi-powered robot, meticulously engineered to navigate autonomously through a predefined space to retrieve items. What sets this project apart is the integration of an AI-powered algorithm, specifically the A* algorithm, which intelligently determines the optimal path for the robot to traverse in reaching the desired products.'),
+            const Text(
+                'The key to this efficiency is a meticulously crafted map that serves as a digital blueprint of the shopping environment. Each products precise location, represented by coordinates on the x, y, and z axes, is stored in a database. This spatial information is then utilized by the A* algorithm to calculate the most efficient route for the robot to follow, ensuring quick and precise retrieval of the ordered items.'),
+            const Text(
+                'Real-time updates are seamlessly communicated to users via the website, keeping them informed about the status of their orders. As the robot successfully retrieves the items, it strategically returns to a central point for streamlined delivery preparation.'),
             const Text(
               'How it works',
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
