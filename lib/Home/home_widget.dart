@@ -332,6 +332,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             MaterialPageRoute(builder: (context) => ChatbotPage()),
           );
         },
+        backgroundColor: Colors.amber,
         child: Icon(Icons.chat),
       ),
     );
