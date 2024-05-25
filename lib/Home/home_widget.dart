@@ -5,7 +5,7 @@ import 'package:linked_all_pages/Categories/category_screen.dart';
 import 'package:linked_all_pages/Widgets/product_card.dart';
 import 'package:linked_all_pages/productDetails/product_details_screen.dart';
 import '../Chatbot/chatbot.dart';
-import '../Home/home_model.dart';
+import 'home_model.dart';
 import '../profile_screen/profile_screen.dart';
 import '../shop/search_screen.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
