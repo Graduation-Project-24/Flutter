@@ -24,7 +24,7 @@ class Favorite {
       reviews: List<Map<String, dynamic>>.from(json['reviews'] ?? []),
     );
   }
-  List<int> extractReviewRates() {
-    return reviews.map((review) => review['rate'] as int).toList();
+  List<double> extractReviewRates() {
+    return reviews.map((review) => review['rate'] as double).toList();
   }
 }

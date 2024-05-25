@@ -13,7 +13,7 @@ class Favorites extends StatefulWidget {
 }
 
 class _FavoritesState extends State<Favorites> {
-  List<Favorite> favoritesData = []; 
+  List<Favorite> favoritesData = [];
   bool isLoading = true;
 
   @override
