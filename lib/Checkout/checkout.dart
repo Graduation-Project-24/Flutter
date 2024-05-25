@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:linked_all_pages/url.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -29,9 +29,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
     });
 
     try {
+      String url = URL();
       // Make a POST request to fetch the session URL
       final response = await http.post(
-        Uri.parse('https://www.smarketp.somee.com/api/Order/Checkout'),
+        Uri.parse('$url/Order/Checkout'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${widget.token}',

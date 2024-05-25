@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:linked_all_pages/url.dart';
 import 'cart_model.dart';
 
 class CartService {
-  final String baseUrl = 'https://www.smarketp.somee.com/api/Order';
+  final String baseUrl = URL();
 
   Future<List<CartItem>> getCartItems(String token) async {
     final response = await http.get(
-      Uri.parse('$baseUrl/GetShoppingCartbyUser'),
+      Uri.parse('$baseUrl/Order/GetShoppingCartbyUser'),
       headers: {'Authorization': 'Bearer $token'},
     );
 
@@ -24,7 +25,7 @@ class CartService {
 
   Future<void> addToCart(String token, int packageId, int quantity) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/AddToCart'),
+      Uri.parse('$baseUrl/Order/AddToCart'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -42,7 +43,7 @@ class CartService {
 
   Future<void> removeFromCart(String token, int productId) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/RemoveFromCartMobile?productId=$productId'),
+      Uri.parse('$baseUrl/Order/RemoveFromCartMobile?productId=$productId'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',

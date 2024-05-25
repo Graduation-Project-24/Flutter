@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/home/home_widget.dart';
 import 'package:linked_all_pages/screens/forget1.dart';
-
 import 'checkout_1.dart';
-import 'home_screen.dart';
 
 class chart extends StatelessWidget {
   @override

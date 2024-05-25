@@ -1,12 +1,14 @@
 import 'package:http/http.dart' as http;
+
+import 'package:linked_all_pages/url.dart';
 import 'dart:convert';
 import 'favorite_model.dart';
 
 class FavoriteService {
   static Future<List<Favorite>> getFavorites(String token) async {
-    const url = 'https://www.smarketp.somee.com/api/Favorite/GetFavorites';
+    String url = URL();
     final response = await http.get(
-      Uri.parse(url),
+      Uri.parse('$url/Favorite/GetFavorites'),
       headers: {'Authorization': 'Bearer $token'},
     );
 
@@ -20,9 +22,9 @@ class FavoriteService {
   }
 
   static Future<void> removeFromFavorites(int productId, String token) async {
-    final url = 'https://www.smarketp.somee.com/api/Favorite/Delete';
+    final url = URL();
     final response = await http.post(
-      Uri.parse(url),
+      Uri.parse('$url/Favorite/Delete'),
       headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',

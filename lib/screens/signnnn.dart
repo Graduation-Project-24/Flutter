@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/screens/forget1.dart';
-import 'package:linked_all_pages/screens/home_screen.dart';
 
 import '../login/login_screen.dart';
 
