@@ -88,7 +88,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           child: GestureDetector(
             onTap: () {
               setState(() {
-                Navigator.push(
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => ProductSearchPage(

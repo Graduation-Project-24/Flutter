@@ -67,42 +67,6 @@ class ProductCardShop extends StatelessWidget {
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              //   child: Text(
-              //     // "${product.brandName} EGP",
-              //     "100 EGP",
-              //     style: const TextStyle(
-              //       color: Color(0xFF393F42),
-              //       fontSize: 14,
-              //       fontWeight: FontWeight.w600,
-              //     ),
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   // child: Row(
-              //   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   //   children: [
-              //   //     Row(
-              //   //       children: [
-              //   //         Icon(
-              //   //           Icons.star_rounded,
-              //   //           color: Colors.amber[600],
-              //   //         ),
-              //   //         Text(
-              //   //           product.subCategoryName,
-              //   //           style: const TextStyle(fontWeight: FontWeight.w400),
-              //   //         ),
-              //   //       ],
-              //   //     ),
-              //   //     Text(
-              //   //       '${product.id} Reviews',
-              //   //       style: const TextStyle(fontWeight: FontWeight.w400),
-              //   //     ),
-              //   //   ],
-              //   // ),
-              // ),
             ],
           ),
         ),

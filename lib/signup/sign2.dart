@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/login/login_screen.dart';
+import 'package:linked_all_pages/url.dart';
 
 class Sign_up extends StatelessWidget {
   const Sign_up({super.key});
@@ -33,8 +34,7 @@ class _TestState extends State<Test> {
 
   Future<void> signUp(BuildContext context) async {
     try {
-      var url =
-          Uri.parse("https://www.smarketp.somee.com/api/Account/register");
+      var url = URL();
       var userData = {
         "firstName": firstNameController.text,
         "lastName": lastNameController.text,
@@ -44,7 +44,7 @@ class _TestState extends State<Test> {
         "email": emailController.text,
       };
       var response = await http.post(
-        url,
+        Uri.parse("$url/Account/register"),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: jsonEncode(userData),
       );

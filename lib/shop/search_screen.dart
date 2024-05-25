@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/Cart/cart_screen.dart';
+import 'package:linked_all_pages/screens/home_screen.dart';
 import 'package:linked_all_pages/shop/shop_screen.dart';
+import 'package:linked_all_pages/url.dart';
 import 'dart:convert';
 import '../productDetails/product_details_screen.dart';
 
@@ -20,9 +22,11 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
 
   void _performSearch(String query) {
     if (query.isNotEmpty) {
-      String apiUrl =
-          'https://www.smarketp.somee.com/api/Product/GetProductsBySearch?searchTerm=$query';
-      http.get(Uri.parse(apiUrl)).then((response) {
+      String apiUrl = URL();
+      http
+          .get(Uri.parse(
+              "$apiUrl/Product/GetProductsBySearch?searchTerm=$query"))
+          .then((response) {
         if (response.statusCode == 200) {
           List<dynamic> responseData = json.decode(response.body);
           setState(() {
@@ -50,8 +54,8 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
             onPressed: () {
               Navigator.of(context)
                   .pushReplacement(MaterialPageRoute(builder: (context) {
-                return ShoppingScreen(
-                  token: widget.token,
+                return HomeScreen(
+                  token: widget.token as String,
                 );
               }));
             },
