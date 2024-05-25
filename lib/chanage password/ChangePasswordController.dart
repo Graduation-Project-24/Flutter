@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/chanage%20password/chanage%20Model%20Class.dart';
+import 'package:linked_all_pages/url.dart';
 
 import '../login/login_screen.dart';
 
@@ -13,12 +14,11 @@ class ChangePasswordController {
     required String newPassword,
     required BuildContext context,
   }) async {
-    final String apiUrl =
-        "https://www.smarketp.somee.com/api/Account/ChangePassword";
+    final String apiUrl = URL();
 
     try {
       final response = await http.post(
-        Uri.parse(apiUrl),
+        Uri.parse("$apiUrl/Account/ChangePassword"),
         body: jsonEncode(ChangePasswordModel(
           email: email,
           currentPassword: currentPassword,

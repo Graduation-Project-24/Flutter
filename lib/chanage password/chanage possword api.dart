@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:linked_all_pages/url.dart';
 
 import '../login/login_screen.dart';
-
-
-
 
 class Changepassword2 extends StatelessWidget {
   @override
@@ -30,12 +28,11 @@ class _TestState extends State<Test> {
   TextEditingController newPasswordController = TextEditingController();
 
   Future<void> changePassword() async {
-    final String apiUrl =
-        "https://www.smarketp.somee.com/api/Account/ChangePassword";
+    final String apiUrl = URL();
 
     try {
       final response = await http.post(
-        Uri.parse(apiUrl),
+        Uri.parse("$apiUrl/Account/ChangePassword"),
         body: jsonEncode({
           "email": emailController.text,
           "currentPassword": currentPasswordController.text,
