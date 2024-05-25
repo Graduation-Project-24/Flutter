@@ -259,8 +259,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           borderRadius:
                                               BorderRadius.circular(8)),
                                     ),
-                                    child: Image.asset(
-                                      'all_icon.png',
+                                    child: Image.network(
+                                      'https://res.cloudinary.com/dghjthnqs/image/upload/v1716635251/dwxttedx4eojbspecbzh.png',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
