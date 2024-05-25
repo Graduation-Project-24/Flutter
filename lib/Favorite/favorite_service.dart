@@ -4,7 +4,7 @@ import 'favorite_model.dart';
 
 class FavoriteService {
   static Future<List<Favorite>> getFavorites(String token) async {
-    final url = 'https://www.smarketp.somee.com/api/Favorite/GetFavorites';
+    const url = 'https://www.smarketp.somee.com/api/Favorite/GetFavorites';
     final response = await http.get(
       Uri.parse(url),
       headers: {'Authorization': 'Bearer $token'},
@@ -34,6 +34,4 @@ class FavoriteService {
       print('Failed to remove from favorites');
     }
   }
-
-  
 }

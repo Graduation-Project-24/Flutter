@@ -42,7 +42,7 @@ class CartService {
 
   Future<void> removeFromCart(String token, int productId) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/RemoveFromCart?productId=$productId'),
+      Uri.parse('$baseUrl/RemoveFromCartMobile?productId=$productId'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
