@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/profile_screen/profile_screen.dart';
+import 'package:linked_all_pages/url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
@@ -81,8 +82,7 @@ class _ProfileEditorState extends State<EditProfile> {
 
   Future<void> editProfile(BuildContext context) async {
     try {
-      var url =
-          Uri.parse("https://www.smarketp.somee.com/api/Account/EditUserV2");
+      var url = URL();
       var userData = {
         "LastName": lastNameController.text,
         "FirstName": firstNameController.text,
@@ -93,13 +93,13 @@ class _ProfileEditorState extends State<EditProfile> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = widget.token;
 
-      if (token == null) {
-        print("Token not found");
-        return;
-      }
+      // if (token == null) {
+      //   print("Token not found");
+      //   return;
+      // }
 
       var response = await http.put(
-        url,
+        Uri.parse("$url/Account/EditUserV2"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',

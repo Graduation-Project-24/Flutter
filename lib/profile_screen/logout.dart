@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:linked_all_pages/url.dart';
 
 class LogoutService {
-  final String apiUrl = 'https://www.smarketp.somee.com/api/Account/Logout';
+  final String apiUrl = URL();
 
   Future<bool> logout(String token) async {
     try {
       final response = await http.post(
-        Uri.parse(apiUrl),
+        Uri.parse("$apiUrl/Account/Logout"),
         headers: <String, String>{
           'Authorization': 'Bearer $token',
         },

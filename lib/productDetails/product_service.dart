@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:linked_all_pages/url.dart';
 
 Future<Map<String, dynamic>> fetchProductDetails(int productId) async {
-  final response = await http.get(Uri.parse(
-      'https://www.smarketp.somee.com/api/Product/Details/$productId'));
+  String url = URL();
+  final response = await http.get(Uri.parse('$url/Product/Details/$productId'));
 
   if (response.statusCode == 200) {
     return json.decode(response.body);
@@ -16,14 +17,14 @@ Future<Map<String, dynamic>> fetchProductDetails(int productId) async {
 
 class ProductService {
   static Future<void> addToFavorites(int productId, String token) async {
-    final url = 'https://www.smarketp.somee.com/api/Favorite/Add';
     final headers = <String, String>{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     };
+    String url = URL();
     final body = jsonEncode({'productId': productId});
-    final response =
-        await http.post(Uri.parse(url), headers: headers, body: body);
+    final response = await http.post(Uri.parse('$url/Favorite/Add'),
+        headers: headers, body: body);
 
     if (response.statusCode == 200) {
       if (response.body.isNotEmpty) {
@@ -45,7 +46,7 @@ class ProductService {
       throw ArgumentError('productId cannot be null');
     }
 
-    final url = 'https://www.smarketp.somee.com/api/Order/AddToCart';
+    final url = URL();
     final headers = <String, String>{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
@@ -53,8 +54,8 @@ class ProductService {
     final body = jsonEncode(
       {'productId': productId, 'quantity': 1},
     );
-    final response =
-        await http.post(Uri.parse(url), headers: headers, body: body);
+    final response = await http.post(Uri.parse("$url/Order/AddToCart"),
+        headers: headers, body: body);
 
     if (response.statusCode == 200) {
       if (response.body.isNotEmpty) {
@@ -81,14 +82,14 @@ class ProductService {
   }
 
   static Future<void> removeFromFavorites(int productId, String token) async {
-    final url = 'https://www.smarketp.somee.com/api/Favorite/Delete';
+    final url = URL();
     final headers = <String, String>{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     };
     final body = jsonEncode({'productId': productId});
-    final response =
-        await http.post(Uri.parse(url), headers: headers, body: body);
+    final response = await http.post(Uri.parse("$url/Favorite/Delete"),
+        headers: headers, body: body);
 
     if (response.statusCode == 200) {
       // Handle success
@@ -100,10 +101,9 @@ class ProductService {
   }
 
   static Future<bool> checkFavorite(int productId, String token) async {
-    final url = Uri.parse(
-        'https://www.smarketp.somee.com/api/Favorite/CheckFavorite?productId=$productId');
+    final url = URL();
     final response = await http.get(
-      url,
+      Uri.parse("$url/Favorite/CheckFavorite?productId=$productId"),
       headers: <String, String>{
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',

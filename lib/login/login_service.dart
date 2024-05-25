@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:linked_all_pages/url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_model.dart';
 
 class LoginService {
   static Future<String?> signIn(LoginModel userData) async {
     try {
-      var url = Uri.parse("https://www.smarketp.somee.com/api/Account/login");
+      String UrlLink = URL();
+      var url = Uri.parse("$UrlLink/Account/login");
       var response = await http.post(
         url,
         headers: <String, String>{'Content-Type': 'application/json'},
@@ -31,5 +33,3 @@ class LoginService {
     await prefs.setString('token', token);
   }
 }
-
-

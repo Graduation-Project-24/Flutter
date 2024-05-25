@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/Categories/category_screen.dart';
 import 'package:linked_all_pages/Widgets/product_card.dart';
