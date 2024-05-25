@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/Categories/category_screen.dart';
 import 'package:linked_all_pages/Widgets/product_card.dart';
 import 'package:linked_all_pages/productDetails/product_details_screen.dart';
+import 'package:linked_all_pages/url.dart';
+
 import '../Chatbot/chatbot.dart';
 import 'home_model.dart';
 import '../profile_screen/profile_screen.dart';
@@ -46,8 +49,8 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 
   Future<void> fetchData() async {
-    final response = await http
-        .get(Uri.parse('https://www.smarketp.somee.com/api/Home/MobileHome'));
+    String url = URL();
+    final response = await http.get(Uri.parse('$url/Home/MobileHome'));
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
@@ -215,21 +218,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   const EdgeInsets.symmetric(horizontal: 10.0),
                               child: Column(
                                 children: [
-                                  Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: ShapeDecoration(
-                                      color: const Color(0xCCD5E2EA),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      category.imageUrl,
+                                      width: 50,
+                                      height: 50,
                                     ),
-                                    child: Image.network(category.imageUrl),
                                   ),
                                   Text(
                                     category.name.length > 6
                                         ? '${category.name.substring(0, 6)}...'
                                         : category.name,
+                                    style: TextStyle(fontSize: 12),
                                   ),
                                 ],
                               ),
@@ -257,10 +258,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       color: const Color(0xCCD5E2EA),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(8)),
+                                              BorderRadius.circular(10)),
                                     ),
-                                    child: Image.network(
-                                      'https://res.cloudinary.com/dghjthnqs/image/upload/v1716635251/dwxttedx4eojbspecbzh.png',
+                                    child: Image.asset(
+                                      'all_icon.png',
                                       fit: BoxFit.cover,
                                     ),
                                   ),

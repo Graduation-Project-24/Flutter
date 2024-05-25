@@ -1,11 +1,12 @@
 import 'package:http/http.dart' as http;
+import 'package:linked_all_pages/url.dart';
 import 'dart:convert';
 import 'category_model.dart';
 
 class CategoryService {
   static Future<List<CategoryModel>> fetchCategories() async {
-    final response =
-        await http.get(Uri.parse('https://www.smarketp.somee.com/api/Category'));
+    String url = URL();
+    final response = await http.get(Uri.parse('$url/Category'));
 
     if (response.statusCode == 200) {
       final List<dynamic> responseData = json.decode(response.body);
