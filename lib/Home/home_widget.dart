@@ -45,6 +45,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     }
   }
 
+// edit
   Future<void> fetchData() async {
     final response = await http
         .get(Uri.parse('https://www.smarketp.somee.com/api/Home/MobileHome'));
