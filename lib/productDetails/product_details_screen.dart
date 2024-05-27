@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:linked_all_pages/productDetails/product_service.dart';
 import '../Cart/cart_screen.dart';
+import 'add_review_screen.dart';
 import 'product_model.dart';
 
 class ProductDetailsWidget extends StatefulWidget {
@@ -16,15 +18,19 @@ class ProductDetailsWidget extends StatefulWidget {
 class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
   late Future<Map<String, dynamic>> _productDetails;
   bool isFavorite = false;
-  
+
   @override
   void initState() {
     super.initState();
-    _productDetails = fetchProductDetails(widget.productId as int);
-     checkFavoriteStatus();
+    _fetchProductDetails();
+    checkFavoriteStatus();
   }
 
-// Method to check favorite status for the current product
+  void _fetchProductDetails() {
+    _productDetails = fetchProductDetails(widget.productId as int);
+  }
+
+  // Method to check favorite status for the current product
   void checkFavoriteStatus() async {
     if (widget.token != null) {
       try {
@@ -32,7 +38,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
         final bool isFav = await ProductService.checkFavorite(
             widget.productId as int, widget.token!);
         setState(() {
-          isFavorite = isFav; 
+          isFavorite = isFav;
         });
       } catch (e) {
         // Handle error
@@ -40,6 +46,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
@@ -199,12 +206,51 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                       '${review['comment']}',
                       style: TextStyle(fontSize: 16),
                     ),
-                    subtitle: Text(
-                      'Rating: ${review['rate']}',
-                      style: TextStyle(fontSize: 14),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RatingBarIndicator(
+                          rating: review['rate'].toDouble(),
+                          itemBuilder: (context, index) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          itemCount: 5,
+                          itemSize: 20.0,
+                          direction: Axis.horizontal,
+                        ),
+                      ],
                     ),
                   );
                 },
+              ),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddReviewPage(
+                      productId: widget.productId as int,
+                      token: widget.token!,
+                    ),
+                  ),
+                );
+              },
+              icon: Icon(Icons.rate_review, color: Colors.white),
+              label: Text(
+                'Add Review',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Color(0xFFFAA933),
+                shadowColor: Color.fromARGB(255, 253, 176, 61),
+                elevation: 10,
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
               ),
             ),
             const SizedBox(height: 20.0),
@@ -268,42 +314,41 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                 ),
               ),
             ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xFFFAA933)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  // Call the addToCart method with the productId and token
-                  ProductService.addToCart(
-                          widget.productId as int, widget.token as String, 1)
-                      .catchError((error) {
-                    // Handle error
-                    print(error);
-                    // You can also display an error message here
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    'Add To Cart',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       ),
+      floatingActionButton: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Color(0xFFFAA933)),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
+          ),
+          onPressed: () {
+            // Call the addToCart method with the productId and token
+            ProductService.addToCart(
+                    widget.productId as int, widget.token as String, 1)
+                .catchError((error) {
+              // Handle error
+              print(error);
+              // You can also display an error message here
+            });
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'Add To Cart',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
