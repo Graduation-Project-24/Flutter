@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/screens/forget1.dart';
-import 'package:linked_all_pages/shop/shop_screen.dart';
 
 // ignore: camel_case_types
 class check3_1 extends StatefulWidget {
