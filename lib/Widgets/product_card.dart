@@ -49,9 +49,7 @@ Widget ProductCard(String imageUrl, String name, String price) {
           padding: const EdgeInsets.all(8.0),
           child: Center(
             child: MaterialButton(
-              onPressed: () {
-                // Add your logic here
-              },
+              onPressed: () {},
               textColor: Colors.white,
               color: const Color(0xFFFAA933),
               child: const Text('Add to cart'),
