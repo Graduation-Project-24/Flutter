@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:linked_all_pages/Cart/cart_screen.dart';
 import 'package:linked_all_pages/shop/shop_product_model.dart';
 import 'package:linked_all_pages/shop/shop_service.dart';
 import 'search_screen.dart';
@@ -174,19 +173,6 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
           ),
         ),
         elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                    builder: (context) => CartScreen(
-                          token: widget.token as String,
-                        )), // change to home
-              );
-            },
-            icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white),
-          )
-        ],
       ),
       body: FutureBuilder<List<Product>>(
         future: _products,

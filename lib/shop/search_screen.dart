@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/Cart/cart_screen.dart';
 import 'package:linked_all_pages/screens/home_screen.dart';
-import 'package:linked_all_pages/shop/shop_screen.dart';
 import 'package:linked_all_pages/url.dart';
 import 'dart:convert';
 import '../productDetails/product_details_screen.dart';
