@@ -62,7 +62,7 @@ class _FavoritesState extends State<Favorites> {
             fontWeight: FontWeight.w700,
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())

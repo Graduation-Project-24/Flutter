@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/Categories/category_screen.dart';
-import 'package:linked_all_pages/Widgets/product_card.dart';
 import 'package:linked_all_pages/productDetails/product_details_screen.dart';
+import 'package:linked_all_pages/productDetails/product_service.dart';
 import 'package:linked_all_pages/url.dart';
 
 import '../Chatbot/chatbot.dart';
@@ -69,6 +69,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF0F5F8),
       appBar: AppBar(
         title: const Padding(
           padding: EdgeInsets.only(top: 20),
@@ -299,23 +300,95 @@ class _HomeWidgetState extends State<HomeWidget> {
                       itemBuilder: (context, index) {
                         final product = products[index];
                         return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProductDetailsWidget(
-                                  token: widget.token,
-                                  productId: product.id,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailsWidget(
+                                    token: widget.token,
+                                    productId: product.id,
+                                  ),
                                 ),
+                              );
+                            },
+                            child: Container(
+                              width: 151,
+                              decoration: ShapeDecoration(
+                                color: const Color(0xFFD5E2EA),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6)),
                               ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.network(
+                                    product.imageUrl,
+                                    height:
+                                        100, // Set a fixed height or adjust as needed
+                                    width: 151,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return const Icon(Icons.error);
+                                    },
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      product.name,
+                                      style: const TextStyle(
+                                        color: Color(0xFF393F42),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      maxLines: 2, // Limit the name to 2 lines
+                                      overflow: TextOverflow
+                                          .ellipsis, // Add ellipsis for overflow
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Text(
+                                      "${product.price} EGP",
+                                      style: const TextStyle(
+                                        color: Color(0xFF393F42),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: MaterialButton(
+                                        onPressed: () {
+                                          ProductService.addToCart(
+                                                  product.id as int,
+                                                  widget.token as String,
+                                                  1)
+                                              .catchError((error) {
+                                            // Handle error
+                                            print(error);
+                                            // You can also display an error message here
+                                          });
+                                        },
+                                        textColor: Colors.white,
+                                        color: const Color(0xFFFAA933),
+                                        child: const Text('Add to cart'),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                            // ProductCard(
+                            //   product.imageUrl,
+                            //   product.name,
+                            //   product.price.toString(),
+                            // ),
                             );
-                          },
-                          child: ProductCard(
-                            product.imageUrl,
-                            product.name,
-                            product.price.toString(),
-                          ),
-                        );
                       },
                     ),
                   ],

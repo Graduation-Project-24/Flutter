@@ -76,7 +76,9 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF0F5F8),
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           onPressed: () {
             Navigator.pushReplacement(
@@ -96,7 +98,7 @@ class _CartScreenState extends State<CartScreen> {
           style: TextStyle(
               color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
@@ -124,7 +126,7 @@ class _CartScreenState extends State<CartScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Price: \$${cartItem.price.toStringAsFixed(2)}',
+                        'Price: ${cartItem.price.toStringAsFixed(2)} EGP',
                       ),
                       Row(
                         children: [
@@ -213,7 +215,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
             Text(
-              'Total Price: \$${totalPrice.toStringAsFixed(2)}',
+              'Total Price: ${totalPrice.toStringAsFixed(2)} EGP',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
