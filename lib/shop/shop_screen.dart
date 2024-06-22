@@ -148,26 +148,26 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                     color: Colors.white,
                   ),
                 ),
-                TextButton.icon(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStatePropertyAll<Color>(Colors.white),
-                    shape: MaterialStatePropertyAll<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  label: const Text(
-                    'Filter',
-                    style: TextStyle(color: Color(0xff414E56)),
-                  ),
-                  icon: const Icon(
-                    Icons.format_align_left_sharp,
-                    color: Color(0xff414E56),
-                  ),
-                ),
+                // TextButton.icon(
+                //   style: ButtonStyle(
+                //     backgroundColor:
+                //         MaterialStatePropertyAll<Color>(Colors.white),
+                //     shape: MaterialStatePropertyAll<OutlinedBorder>(
+                //       RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(8),
+                //       ),
+                //     ),
+                //   ),
+                //   onPressed: () {},
+                //   label: const Text(
+                //     'Filter',
+                //     style: TextStyle(color: Color(0xff414E56)),
+                //   ),
+                //   icon: const Icon(
+                //     Icons.format_align_left_sharp,
+                //     color: Color(0xff414E56),
+                //   ),
+                // ),
               ],
             ),
           ),

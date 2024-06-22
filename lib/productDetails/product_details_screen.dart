@@ -65,6 +65,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
 
   Widget _buildProductDetails(Map<String, dynamic> productData) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF0F5F8),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {

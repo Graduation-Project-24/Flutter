@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linked_all_pages/screens/home_screen.dart';
 import '../Checkout/checkout.dart';
 import 'cart_model.dart';
 import 'cart_service.dart';
@@ -76,6 +77,19 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomeScreen(
+                        token: widget.token as String,
+                      )),
+            );
+          },
+          icon: const Icon(Icons.arrow_back_ios_new),
+          color: const Color(0xff384959),
+        ),
         centerTitle: true,
         title: const Text(
           "Shopping chart",
@@ -181,7 +195,10 @@ class _CartScreenState extends State<CartScreen> {
         onPressed: () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => CheckoutPage(token: widget.token,)), // to checkout
+            MaterialPageRoute(
+                builder: (context) => CheckoutPage(
+                      token: widget.token,
+                    )), // to checkout
           );
         },
         label: Column(

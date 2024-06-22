@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:linked_all_pages/Cart/cart_screen.dart';
 import 'package:linked_all_pages/url.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -78,6 +79,19 @@ class _CheckoutPageState extends State<CheckoutPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Checkout'),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CartScreen(
+                        token: widget.token as String,
+                      )),
+            );
+          },
+          icon: const Icon(Icons.arrow_back_ios_new),
+          color: const Color(0xff384959),
+        ),
       ),
       body: Center(
         child: _isLoading
