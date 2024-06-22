@@ -6,13 +6,14 @@ class Favorite {
   final double price;
   final List<Map<String, dynamic>> reviews;
 
-  Favorite(
-      {required this.productId,
-      required this.productName,
-      required this.imageUrl,
-      required this.description,
-      required this.reviews,
-      required this.price});
+  Favorite({
+    required this.productId,
+    required this.productName,
+    required this.imageUrl,
+    required this.description,
+    required this.reviews,
+    required this.price,
+  });
 
   factory Favorite.fromJson(Map<String, dynamic> json) {
     return Favorite(
@@ -20,11 +21,12 @@ class Favorite {
       productName: json['productName'] ?? "",
       imageUrl: json['imageUrl'] ?? "",
       description: json['description'] ?? "",
-      price: json['price'] ?? 0.0,
+      price: (json['price'] as num).toDouble(),
       reviews: List<Map<String, dynamic>>.from(json['reviews'] ?? []),
     );
   }
+
   List<double> extractReviewRates() {
-    return reviews.map((review) => review['rate'] as double).toList();
+    return reviews.map((review) => (review['rate'] as num).toDouble()).toList();
   }
 }

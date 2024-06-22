@@ -35,15 +35,17 @@ class _FavoritesState extends State<Favorites> {
 
     try {
       favoritesData = await FavoriteService.getFavorites(widget.token!);
-      setState(() {
-        isLoading = false;
-      });
     } catch (error) {
       print('Error fetching favorites: $error');
       setState(() {
         isLoading = false;
       });
+      return;
     }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -129,7 +131,7 @@ class _FavoritesState extends State<Favorites> {
                                         margin:
                                             const EdgeInsets.only(bottom: 5),
                                         child: Text(
-                                          favorite.price.toString(),
+                                          favorite.price.toString() + " L.E",
                                           style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,
