@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:linked_all_pages/Cart/cart_screen.dart';
+import 'package:linked_all_pages/chanage%20password/changepasswordori.dart';
 import 'package:linked_all_pages/profile_screen/edit_profile.dart';
 import 'package:linked_all_pages/profile_screen/logout.dart';
 import 'package:linked_all_pages/screens/about_screen.dart';
@@ -195,10 +196,10 @@ class profile_screen extends StatelessWidget {
                             trailing: const Icon(Icons.chevron_right_outlined,
                                 color: Color(0xff000000)),
                             onTap: () {
-                              /*  Navigator.of(context)
-                                    .push(MaterialPageRoute(builder: (context) {
-                                  return ForgetPassword();
-                                }));*/
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return Changepassword();
+                              }));
                             })
                       ],
                     ),
