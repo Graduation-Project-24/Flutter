@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:linked_all_pages/Categories/category_screen.dart';
+import 'package:linked_all_pages/Chatbot/chatbot.dart';
 import 'package:linked_all_pages/productDetails/product_details_screen.dart';
 import 'package:linked_all_pages/productDetails/product_service.dart';
 import 'package:linked_all_pages/url.dart';
 
-import '../Chatbot/chatbot.dart';
 import 'home_model.dart';
 import '../profile_screen/profile_screen.dart';
 import '../shop/search_screen.dart';
@@ -402,7 +402,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatbotPage()),
+            MaterialPageRoute(builder: (context) => ChatBotPage()),
           );
         },
         backgroundColor: Color(0xFFFFC107),

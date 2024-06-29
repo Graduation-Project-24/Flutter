@@ -1,19 +1,53 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class ChatbotPage extends StatefulWidget {
+class ChatBotPage extends StatefulWidget {
   @override
-  _ChatbotPageState createState() => _ChatbotPageState();
+  _ChatBotPageState createState() => _ChatBotPageState();
 }
 
-class _ChatbotPageState extends State<ChatbotPage> {
-  TextEditingController _textController = TextEditingController();
-  List<ChatMessage> _chatHistory = [];
+class _ChatBotPageState extends State<ChatBotPage> {
+  final TextEditingController _controller = TextEditingController();
+  final List<Map<String, String>> _messages = [];
+
+  Future<void> sendMessage(String message) async {
+    final String apiUrl =
+        'https://esmael-saleh-smarkety.hf.space/api/v1/smarkety?question=$message'; // Replace with your API URL
+
+    setState(() {
+      _messages.add({'user': message});
+    });
+
+    try {
+      final response = await http.get(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        setState(() {
+          _messages.add({
+            'bot': data['response']
+          }); // Assuming the API returns a field named 'response'
+        });
+      } else {
+        setState(() {
+          _messages.add({'bot': 'Error: ${response.statusCode}'});
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _messages.add({'bot': 'Error: $e'});
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF0F5F8),
       appBar: AppBar(
         title: Text('Chatbot'),
       ),
@@ -21,9 +55,28 @@ class _ChatbotPageState extends State<ChatbotPage> {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: _chatHistory.length,
-              itemBuilder: (BuildContext context, int index) {
-                return _chatHistory[index];
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final message = _messages[index];
+                final isUserMessage = message.containsKey('user');
+                return ListTile(
+                  title: Align(
+                    alignment: isUserMessage
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        color: isUserMessage ? Colors.blueAccent : Colors.grey,
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Text(
+                        isUserMessage ? message['user']! : message['bot']!,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                );
               },
             ),
           ),
@@ -33,86 +86,26 @@ class _ChatbotPageState extends State<ChatbotPage> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _textController,
+                    controller: _controller,
                     decoration: InputDecoration(
-                      hintText: 'Enter your message',
+                      labelText: 'Enter message',
                     ),
                   ),
                 ),
-                ElevatedButton(
+                IconButton(
+                  icon: Icon(Icons.send),
                   onPressed: () {
-                    _sendMessage(_textController.text);
-                    _textController.clear();
+                    final message = _controller.text.trim();
+                    if (message.isNotEmpty) {
+                      sendMessage(message);
+                      _controller.clear();
+                    }
                   },
-                  child: Text('Send'),
                 ),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Future<void> _sendMessage(String inputText) async {
-    final String apiUrl = 'http://127.0.0.1:5000/chatbot/$inputText';
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'input_text': inputText,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      final responseBody = json.decode(response.body);
-      if (responseBody != null && responseBody.containsKey('response')) {
-        setState(() {
-          _chatHistory.add(ChatMessage(
-            text: inputText,
-            isUserMessage: true,
-          ));
-          _chatHistory.add(ChatMessage(
-            text: responseBody['response'],
-            isUserMessage: false,
-          ));
-        });
-      } else {
-        print('Invalid response format: $responseBody');
-        throw Exception('Invalid response format');
-      }
-    } else {
-      throw Exception('Failed to generate content');
-    }
-  }
-}
-
-class ChatMessage extends StatelessWidget {
-  final String text;
-  final bool isUserMessage;
-
-  const ChatMessage({
-    required this.text,
-    required this.isUserMessage,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: isUserMessage ? Alignment.centerLeft : Alignment.centerRight,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      decoration: BoxDecoration(
-        color: isUserMessage
-            ? Color.fromARGB(255, 58, 58, 58)
-            : Color.fromRGBO(248, 137, 11, 1),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(color: Colors.white),
       ),
     );
   }
